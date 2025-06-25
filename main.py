@@ -1,17 +1,9 @@
-# a = 123456.4
-# lenght = len(str(a))
-# print (lenght)
-
-# word = input('Введите слово из 4 букв: ')
-# if not word or len(word) != 4:
-#     print('Неверный формат слова')
-# if len(word) == 4:
-#     print('Верно')
-# else:
-#     print('Попробуйте снова')
-
-word = input('Введите слово дл анализа длины: ')
-if not word or len(word) < 4:
-    print('Попробуйте снова')
-else:
-    print('Длина слова "'+ word +'" =', len(word))
+word1 = '\tпришел'
+word2 = '\t\tувидел'
+word3 = '\t\t\tпобедил'
+word4 = '\xA4\xBA\xA4'  # https://www.ascii-code.com/
+word5 = '\u261e'
+# https://home.unicode.org/
+print(word1, word2, word3, sep='\n', end='!\n')
+print(word4)
+print(word5, 'Концерт группы \"Кино\"')
