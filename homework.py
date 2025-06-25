@@ -8,9 +8,7 @@ email = input('Введите адрес электронной почты: ')
 password = input('Введите пароль из 6 знаков: ')
 if (len(birthday) == 10 and len(password) == 6):
     print('Проверка данных:')
-    print(f'\tЛогин: {login}, \n\tДата рождения: {birthday}, \n\tЭлектронная почта: {email},'
-    f'\n\tПароль: {password}')
+    print(f'\tЛогин: {login:>16}', f'\n\tДата рождения: {birthday:>14}', f'\n\tЭлектронная почта: {email}',
+          f'\n\tПароль: {password:>17}')
 else:
     print('Проверьте корректность заполненных данных')
-
-
