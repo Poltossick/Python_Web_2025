@@ -1,15 +1,17 @@
-a = 3
-b = 5
+# a = 123456.4
+# lenght = len(str(a))
+# print (lenght)
 
-print('До: ')
-print('a=', a, 'b=', b)
+# word = input('Введите слово из 4 букв: ')
+# if not word or len(word) != 4:
+#     print('Неверный формат слова')
+# if len(word) == 4:
+#     print('Верно')
+# else:
+#     print('Попробуйте снова')
 
-a, b = b, a #swap
-"""
-temp = a
-a = b
-b = temp 
-"""
-
-print('После: ')
-print('a=', a, 'b=', b)
+word = input('Введите слово дл анализа длины: ')
+if not word or len(word) < 4:
+    print('Попробуйте снова')
+else:
+    print('Длина слова "'+ word +'" =', len(word))
