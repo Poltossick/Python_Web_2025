@@ -1,14 +1,15 @@
-hour = 13
-if hour > 23:
-    hour = 23
-if hour < 0:
-    hour = 0
+a = 3
+b = 5
 
-if 7 <= hour < 12:
-    print('Доброе утро')
-elif 12 <= hour < 18:
-    print('Добрый день')
-elif 18 <= hour < 23:
-    print('Добрый вечер')
-else:
-    print('Доброй ночи')
+print('До: ')
+print('a=', a, 'b=', b)
+
+a, b = b, a #swap
+"""
+temp = a
+a = b
+b = temp 
+"""
+
+print('После: ')
+print('a=', a, 'b=', b)
