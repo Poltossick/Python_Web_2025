@@ -1,9 +1,16 @@
-word1 = '\tпришел'
-word2 = '\t\tувидел'
-word3 = '\t\t\tпобедил'
-word4 = '\xA4\xBA\xA4'  # https://www.ascii-code.com/
-word5 = '\u261e'
-# https://home.unicode.org/
-print(word1, word2, word3, sep='\n', end='!\n')
-print(word4)
-print(word5, 'Концерт группы \"Кино\"')
+name = 'Петр'
+email = 'petr@r.ru'
+age = 2025-1954
+weight = 75.19
+
+# placeholder (способ держателя места)
+# $s - string (строка)
+# %d - digit (целое число)
+# %f - float (дробь)
+print('Имя: %s, Почта: %s, Возраст: %d' %(name, email, age))
+
+# способ метод - формат
+print('Имя: {}, Почта: {}, Возраст: {}' .format(name, email, age))
+
+# способ F строка
+print(f'Имя: {name}, Почта: {email}, Возраст: {age}, Вес: {weight:.1f}')
