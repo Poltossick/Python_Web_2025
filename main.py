@@ -11,7 +11,7 @@ elif choice == 'R' or choice == 'r':
 elif choice == 'F' or choice == 'f':
     print('сыскал смерть')
 else:
-    print('выбор не ясен')
+    print('Пон')
 print('Вот и сказочке конец')
 
 """
