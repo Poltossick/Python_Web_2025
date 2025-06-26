@@ -1,14 +1,18 @@
-# value = "значение"
-# text = f"Вот пример: {value:>10}"  # Добавляет 10 пробелов справа от значения
-# print(text)
+import random
+from random import random, randrange, randint, choice
 
-login = input('Введите логин: ')
-birthday = input('Введите дату рождения в формате ДД-ММ-ГГГГ: ')
-email = input('Введите адрес электронной почты: ')
-password = input('Введите пароль из 6 знаков: ')
-if (len(birthday) == 10 and len(password) == 6):
-    print('Проверка данных:')
-    print(f'\tЛогин: {login:>16}', f'\n\tДата рождения: {birthday:>14}', f'\n\tЭлектронная почта: {email}',
-          f'\n\tПароль: {password:>17}')
+print('Определение фальшивой монеты')
+a = choice(range(50))
+b = choice(range(50))
+c = choice(range(50))
+print(f'a = {a},\nb = {b},\nc = {c}')
+if a == b:
+    print(f'{a} равно {b}\n\t с - фальшивая монета')
+elif a != b and a > b:
+    print(f'{a} не равно {b} и {a} больше {b}\n\tb - фальшивая монета')
+elif a != b and a < b:
+    print(f'{a} не равно {b} и {a} меньше {b}\n\ta - фальшивая монета')
 else:
-    print('Проверьте корректность заполненных данных')
+    print('нет решения')
+print('задача решена')
+
