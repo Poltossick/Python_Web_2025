@@ -1,4 +1,4 @@
-# ax + bx + c = 0
+print('ax + bx + c = 0')
 a = int(input('Введите a: '))
 b = int(input('Введите b: '))
 c = int(input('Введите c: '))
