@@ -1,7 +1,8 @@
-counter = 0
-while counter < 5:
-    counter += 1
-    if counter == 3:
-        continue
-    print(f'Иттерация {counter}')
-
+flag = True
+while flag:
+    high = int(input('Введите рост: '))
+    if high > 165 and high < 180:
+        print('Вы проходите')
+        flag = not flag
+    else:
+        print('Вы не проходите')
