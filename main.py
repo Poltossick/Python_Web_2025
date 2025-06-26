@@ -1,14 +1,16 @@
-# flag = True
-# while flag:
-#     height = int(input('Введите рост: '))
-#     if 165 < height < 180:
-#         print('Вы проходите')
-#         flag = not flag
-#     else:
-#         print('Вы не проходите')
-
-height = int(input('Введите рост: '))
-while not (165 < height < 180):
-    print('Вы не проходите')
-    height = int(input('Введите рост: '))
-print('Вы проходите')
+print(f'Возможные ходы:\n\tL - влево\n\tR - вправо\n\tF - прямо\n\tQ - выход')
+flag = True
+while flag:
+    ch = input('Ваш выбор: ')
+    match ch:
+        case 'L' | 'l' | 'д' | 'Д' :
+            print('Свернули налево')
+        case 'R' :
+            print('Свернули направо')
+        case 'F':
+            print('Пошли прямо')
+        case 'Q' | 'q' | 'Й' | 'й' :
+            print('выход в меню')
+            flag = False
+        case _:
+            print('выбор не ясен')
