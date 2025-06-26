@@ -1,9 +1,13 @@
-counter = 0
-while counter < 5:
-    print(f'Иттерация {counter + 1}')
-    counter += 1
-print(f'Итого в counter уже {counter}')
-print('Обратный отсчет: ')
-while counter >= 0:
-    print(f'Иттерация {counter}')
-    counter -= 1
+word = input('Введите слово не короче 3 символов: ')
+while len(word) <= 3:
+    print(f'Слово введено неверно. \nСлово должно состоять из 4 и более символов')
+    word = input('Введите слово не короче 3 символов: ')
+
+word = ''
+while len(word) <= 3:
+    word = input('Введите слово не короче 3 символов: ')
+print(f'2 Слово введено {word}')
+
+while len(word:= input('Введите слово не короче 3 символов: ')) <= 3:
+    print('Слово слишком короткое')
+print(f'3 Слово введено {word}')
