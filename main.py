@@ -1,13 +1,7 @@
-num = 3 # число которое нужно угадать
-var = ''
-print('угадай число')
-while 1: #True = 1
-    var = int(input('Ваш вриант: '))
-    if var == num:
-        print('Молодец')
-        break # лучше для простых алгоритмов вылетает из цикла с этого места
-    elif var > num:
-        print('загаданное число меньше')
-    else:
-        print('загаданное число больше')
-print('Конец')
+counter = 0
+while counter < 5:
+    counter += 1
+    if counter == 3:
+        continue
+    print(f'Иттерация {counter}')
+
