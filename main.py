@@ -30,7 +30,12 @@
 # print(d)
 
 cards = {'туз', 'король', 'валет', 'дама'}
-cards_2 = cards.copy()
-cards_2.remove('туз')
-while cards_2:
-    print(cards_2)
+cards.remove('туз')
+while cards: # пока карты в колоде есть
+    print(cards.pop())
+
+# cards = {'туз', 'король', 'валет', 'дама'}
+# ace = {'туз'}
+# result = cards.difference(ace)
+# while result:  # пока карты в колоде есть
+#     print(result.pop())
