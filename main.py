@@ -1,46 +1,26 @@
-# # startswith and endswith
-# word = 'смотреть'
-# if word.lower().startswith('см'): # if word[0] == 'c'
-#     print('Да')
-# if word.lower().endswith('ть'): # if word[-1] == 'ь'
-#     print('yes')
-from itertools import count
-from turtledemo.penrose import start
+# slice - срез
+# [начало(включительно):окончание(не включительно):шаг]
+# phrase = 'Добрый день'
+# q = phrase.find('й') + 1
+# print(phrase[3:9:]) # от n до m (не включая = 8)
+# print(phrase[7:]) # от текущего индекса и до конца
+# print(q)
+# print(phrase[:q]) # от начала и до заданного индекса
+# print(phrase[:-6])
+# print(phrase[::2]) # от начала до конца с шагом 2
+# print(phrase[::-1]) # инверсия, запись наоборот
 
-# # find
-# phrase = 'смотреть, видеть, вертеть'
-# index = phrase.find('еть')  # возвращает первое упоминание, ищем с начала строки phrase
-# index_3 = phrase.find('еть', 8)  # поиск второго вхождения
-# index_4 = phrase.find('и', 8, 15)  # поиск в диапазоне
-# index_2 = phrase.find('Ъ') # проверяет наличие, если -1, то этого нет
-# print(index_4)
 
-# word = 'синхрофазотрон'
-# index = word.find('о')
-# index_next = word.find('о', (index + 1))
-# index_end = word.find('о', (index_next +1))
-# print('Сколько раз встречается буква "о":', word.count('о'), 'раза.',
-#       f' \nБуква "о" стоит на местах: {index}, {index_next}, {index_end}')
-
-# word = 'синхрофазотрон'
-# ch = 'о'
-# numbers = set()
-# if ch in word:
-#     count = word.count(ch)
-#     print(f'Буква \'{ch}\' встречается в слове \'{word}\' {count} раз(а)')
-#     start = 0
-#     for i in range(count):
-#         pos = word.find(ch, start)
-#         start = pos + 1
-#         print(pos, end='\n')
-
-# # replace
-# word = 'тиливизор'
-# print(word.replace('и', 'е'))
-# print(word.replace('и', 'е', 2))
-
-phone = '+7-012-345-67-89' # => +7 (012) 345-67-89
-res = phone.replace('-', ' (', 1)
-res = res.replace('-', ') ', 1)
-print(res)
-print(phone.replace('-', ' (', 1).replace('-', ') ', 1))
+# word = input('Введите слово: ').strip() # потоп
+# word.replace(' ', '')
+# if word.lower() == word.lower()[::-1]:
+#     print('Строка является палиндромом')
+# else:
+#     print('Строка не является палиндромом')
+#
+# phrase = 'Дорог Рим' # Город Миргород
+# print(phrase[:5:][::-1].lower().title(), phrase[::-1].replace(' ', '').lower().title())
+# temp = phrase.lower()
+# city = temp[:5][::-1]
+# res = city + ' ' + temp[6:][::-1] + city
+# print(res.title())
