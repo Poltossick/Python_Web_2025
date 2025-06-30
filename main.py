@@ -1,14 +1,17 @@
-# функция sorted() - на выходе получает сортированный список
-# s = {'Петров', 'Иванов', 'Сидоров'}
-# """
-# lst = list(s)
-# lts.sort()
-# print(*lst, sep=', ')
-# """
-# name = sorted({'Петров', 'Иванов', 'Сидоров'}, reverse=True)
-# print(*name, sep=', ')
+# # Методы строки split() и join()
+# text = 'один два три четыре'
+# lst = text.split() # по умолчанию берет в качестве разделителя все символы пустого пространства
+# print(lst)
+# ip = '192.168.0.1'
+# lst = ip.split('.')
+# print(lst)
+#
+# #['192', '168', '0', '1']
+# text2 = '-'.join(lst) # соединительный элемент ставится перед join
+# print(text2)
 
-# функция enumerate() - нумерует объекты
-# name = ['Сидоров', 'Петров', 'Иванов']
-# for i, v in enumerate(name, 1): # работает только в цикле
-#     print(f'{i}. {v}')
+text = '  P   y t h o     n    '
+# temp = text.split()
+# res = ''.join(temp)
+result = ''.join(text.split()) # убрать все пробелы
+print(result)
