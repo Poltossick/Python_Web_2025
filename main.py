@@ -1,31 +1,19 @@
-from multiprocessing.pool import worker
+# # Кортеж tuple - неизменяемый список, который можно сразу задать
+# # BLACK = (0, 0, 0) - пример
+# empty = () # tuple()
+# print(empty)
+# s = 'Python'
+# emp = tuple(s) + ('.', ) # объединение 2-х картежей в 3-й
+# # чтобы создать кортеж из 1 знака, важно добавить запятую
+# emp_1 = list(emp) # перевести в лист чтобы внести изменения в картеж
+# emp_1[1] = 'И'
+# print(*emp_1, sep='')
 
-# lst = []
-# while (ingredients := input('Введите ингридиент: ')) != '': # - создаем список
-#     lst.append(ingredients)
-# temp = set(lst)  # чтобы убрать повторы
-# lst = list(temp)  # чтобы убрать повторы
-# print(f'Всего {len(lst)} ингредиентов: ')
-#
-# lst.sort()
-# for name in range(len(lst)):
-#     print(str(name + 1) + '.', lst[name])
+# print(dir(tuple))
+# ['__add__', '__class__', '__class_getitem__', '__contains__',
+# '__delattr__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__',
+# '__getattribute__', '__getitem__', '__getnewargs__', '__getstate__', '__gt__',
+# '__hash__', '__init__', '__init_subclass__', '__iter__', '__le__', '__len__', '__lt__',
+# '__mul__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__rmul__', '__setattr__',
+# '__sizeof__', '__str__', '__subclasshook__', 'count', 'index']
 
-# lst = []
-# N = 5
-# for name in range(N):
-#     print(f'На стол положили книгу {str(name + 1)}')
-#     lst.append(name)
-# while lst:
-#     item = lst.pop() # lst.pop(0) = очередь от первой книги
-#     print(f'Со стола берем книгу {item + 1}')
-
-    # Создание аббревиатур
-    # курсы
-    # повышения
-    # квалификации
-    # КПК
-lst = []
-while (word := input('Введите слово: ').strip()) != '':
-    lst.append(word[0].upper()) # добавляем только 1 букву из введенного слова
-print(*lst, sep='') # " * " -- множество аргументов
