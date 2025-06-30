@@ -1,19 +1,24 @@
-# # Кортеж tuple - неизменяемый список, который можно сразу задать
-# # BLACK = (0, 0, 0) - пример
-# empty = () # tuple()
-# print(empty)
-# s = 'Python'
-# emp = tuple(s) + ('.', ) # объединение 2-х картежей в 3-й
-# # чтобы создать кортеж из 1 знака, важно добавить запятую
-# emp_1 = list(emp) # перевести в лист чтобы внести изменения в картеж
-# emp_1[1] = 'И'
-# print(*emp_1, sep='')
+#
+# channels = ['red', 'greed', 'blue'] # == ('red', 'greed', 'blue')
+# # r, *g = channels # распаковка
+# # количество элементов должно быть равно количеству переменных, если меньше, написать ' * ' перед последним
+# a, b, c = channels # распаковка
+# print(b)
 
-# print(dir(tuple))
-# ['__add__', '__class__', '__class_getitem__', '__contains__',
-# '__delattr__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__',
-# '__getattribute__', '__getitem__', '__getnewargs__', '__getstate__', '__gt__',
-# '__hash__', '__init__', '__init_subclass__', '__iter__', '__le__', '__len__', '__lt__',
-# '__mul__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__rmul__', '__setattr__',
-# '__sizeof__', '__str__', '__subclasshook__', 'count', 'index']
+# a, b ,c = input('введите a: '), input('введите b: '), input('введите c: ')
+# print(a, b, c)
 
+# channels = [128, 200, 155]
+# r, g, b = channels
+# print(r, g, b)
+
+N = 3
+tpl = []
+for _ in range(N):
+    a, b = input('Введите фамилию: ').title(), float(input('Введите средний балл: '))
+    tpl.append((a, b))
+    # tpl.sort()
+print(tpl)
+for name in tpl:
+    a, b = name
+    print(f'Студент: {a}. Средний бал: {b}')
