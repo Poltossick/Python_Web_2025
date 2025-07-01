@@ -1,34 +1,35 @@
-# списочное выражение (list comprehension)
+# вложенные списки (nested lists)
+# array = массив[1, 38.6, True, 'cort', (1, 2)]
+# matrix = [
+#     [1, 2, 3],
+#     [4, 5, 6],
+#     [7, 8, 9],
+# ]
+# # обход двухмерного списка или матрицы
+# for a in range(len(matrix)): # row = строки = сначала берет строки
+#     for b in range(len(matrix[a])): # col = столбцы = второй раз берет столбец
+#         print(matrix[a][b])
 
-# # список квадратов чисел
-# squares = []
-# for i in range(10):
-#     squares.append(i ** 2)
-# print(*squares, sep=', ')
-#
-# squares_1 = [i ** 2 for i in range(10)] # оптимальный способ написания
-# print(*squares_1, sep=', ')
-#
-# # список квадратов четных чисел
-# squares_2 = [i ** 2 for i in range(10) if i % 2 == 0] # оптимальный способ написания
-# print(*squares_2, sep='-')
-# row = [a for a in range(1, 3)]
-# print(row)
+# симметричная матрица = строки = столбцы (N)
+N = 3
+count = 1
+matrix = [[1] * N for _ in range(N)]
+for row in range(len(matrix)):
+    for col in range(len(matrix[row])):
+        matrix[row][col] = count
+        count += 1
+print(matrix)
 
-# # произведение i и j
-# for i in range(3):
-#     for j in range(3):
-#         print([i * j], end=', ')
-# print(f'\n{[i * j for i in range(3) for j in range(3)]}')
-#
-# num = '500 600 700 800'
-# a = [int(item) for item in num.split()]  # присвоить переменной для каких-либо действий
-# print(a)
-# approved = ['500', '800']
-# print([int(item) for item in num.split() if item in approved])
-# approved_1 = [500, 800]
-# print([int(item) for item in num.split() if int(item) in approved_1])
+N = 3
+count = 1
+matrix = []
+for row in range(N):
+    table = []
+    for col in range(count, count + N):
+        table.append(col)
+    matrix.append(table)
+    count += N
+print(matrix)
 
-# задача
-text = 'Списочные выражения иногда применяются для конкретно эффективности кода программы'
-print([item for item in text.split()[2::3]]) # операции со списком
+matrix = [[i + j for j in range(3)] for i in range(1, 10, 3)]
+print(matrix)
