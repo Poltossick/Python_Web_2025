@@ -32,9 +32,18 @@ num_to_str = {
 
 def num_to_word(num):
     if len(str(num)) <= 2:
-        item = int(num) % 10
-        item_10 = (int(num) - item) % 100
-        print(f'Число {num} прописью - {num_to_str[item_10]} {num_to_str[item]}')
+        item = ''
+        item_10 = ''
+        if 0 < int(num) <= 9:
+            item = int(num) % 10
+            print(f'Число {num} прописью - {num_to_str[item]}')
+        elif 9 < int(num) <= 19:
+            item = int(num) % 100
+            print(f'Число {num} прописью - {num_to_str[item]}')
+        elif int(num) > 19:
+            item = int(num) % 10
+            item_10 = (int(num) - item) % 100
+            print(f'Число {num} прописью - {num_to_str[item_10]} {num_to_str[item]}')
         return None  # зачем-то просил добавить это значение
     else:
         return num_to_word(int(input('Слово должно быть из двух цифр: ')))
