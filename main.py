@@ -1,35 +1,34 @@
-# вложенные списки (nested lists)
-# array = массив[1, 38.6, True, 'cort', (1, 2)]
-# matrix = [
-#     [1, 2, 3],
-#     [4, 5, 6],
-#     [7, 8, 9],
-# ]
-# # обход двухмерного списка или матрицы
-# for a in range(len(matrix)): # row = строки = сначала берет строки
-#     for b in range(len(matrix[a])): # col = столбцы = второй раз берет столбец
-#         print(matrix[a][b])
+# Словари (dictionary)
+# # пустой словарь
+# dic = {}
+# dic_1 = dict()
+# # предзаполненный словарь
+dic = {
+    'table': ['таблица', 'стол'],
+    'well': ['хорошо', 'колодец', 'скважина'],
+    'chair': 'стул',
+    'apple': 'яблоко',
+    1: 'один',
+    'plum': ['слива'],
+    }
+# # print(dic['table'], dic[1], dic['well'][1], sep='\n')
+# # dic['plum'].append('тест')
+# # print(dic['plum'])
+# del dic['table']
+# print(dic) # словарь целиком, "как есть"
+# for key in dic:
+#     print(key, 'переводится как ', dic[key])
 
-# симметричная матрица = строки = столбцы (N)
-N = 3
-count = 1
-matrix = [[1] * N for _ in range(N)]
-for row in range(len(matrix)):
-    for col in range(len(matrix[row])):
-        matrix[row][col] = count
-        count += 1
-print(matrix)
+"""dir({}) - методы словаря
+# ['__class__', '__class_getitem__', '__contains__', '__delattr__', '__delitem__',
+#  '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__getitem__',
+#  '__getstate__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__ior__', '__iter__',
+#  '__le__', '__len__', '__lt__', '__ne__', '__new__', '__or__', '__reduce__', '__reduce_ex__',
+#  '__repr__', '__reversed__', '__ror__', '__setattr__', '__setitem__', '__sizeof__', '__str__', '__subclasshook__',
+#  'clear', 'copy', 'fromkeys', 'get', 'items', 'keys', 'pop', 'popitem', 'setdefault', 'update', 'values'] """
 
-N = 3
-count = 1
-matrix = []
-for row in range(N):
-    table = []
-    for col in range(count, count + N):
-        table.append(col)
-    matrix.append(table)
-    count += N
-print(matrix)
+deleted_item = dic.pop(1)
+print(deleted_item)
 
-matrix = [[i + j for j in range(3)] for i in range(1, 10, 3)]
-print(matrix)
+if 'chair' in dic: # поиск по ключу
+    print('Стул есть')
