@@ -1,11 +1,23 @@
-def sandwich(type_of_meal, with_onion=False, with_tomato=False):
-    print('bread')
-    if with_onion:
-        print('onion')
-    print(type_of_meal)
-    if with_tomato:
-        print('tomato')
-    print('bread')
+# args (arguments) and kwargs (keyword arguments пишется как имя=значение)
+# def print_any(*args, **kwargs):
+#     for item in args:
+#         print(item)
+#     for k, v in kwargs.items():
+#         print(k, '=', v)
+#
+#
+# print_any('Petr', 'Filatov', city='Moscow', age=27)
+
+def profile(name, surname, city, *children, **additional):
+    print(f'Имя = {name}')
+    print(f'Фамилия = {surname}')
+    print(f'Город = {city}')
+    if len(children) > 0:
+        print(f'Дети: {', '.join(children)}')
+    if 'hobby' in additional:
+        print('Хобби:', ', '.join(additional['hobby']))
 
 
-sandwich('chicken', with_onion=True, with_tomato=True)
+
+profile('Михаил', 'Филатов', 'Абакан', 'Мария', 'Иван',
+        hobby=['Тенис', 'Плавание'])
