@@ -1,17 +1,18 @@
-# Множественный возврат - возврат нескольких значений из функции
-def coordinates():
-    return 5.4, 3.2, 5.6, 7.3, 6.9
-print(coordinates()) # возвращает картеж tuple (5.4, 3.2, 5.6, 7.3, 6.9)
-print(list(coordinates()))
+# Функция с переменным числом аргументов
 
-x, y, *rest = coordinates()
-print(f'x = {x}, y = {y}, rest = {rest}') # распаковка x = 5.4, y = 3.2, rest = [5.6, 7.3, 6.9]
+def multy(*args):
+    print(len(args)) # подсчет числа аргументов = 2
+    print(args) # обращение к каждому аргументу по индексу либо перебором в цикле = (1, 3)
 
-x, *rest, y  = coordinates()
-print(f'x = {x}, rest = {rest}, y = {y}') # распаковка x = 5.4, rest = [3.2, 5.6, 7.3], y = 6.9
+multy(1, 3)
 
-*rest, y = coordinates()
-print(f'rest = {rest}, y = {y}') # распаковка rest = [5.4, 3.2, 5.6, 7.3], y = 6.9
+def multiply(*args):
+    if not args:
+        return 0
+    result = 1
+    for arg in args:
+        result *= arg
+    return result
 
-*names, surname = 'Остап Сулейман Бендер'.split()
-print(names, '-', surname) # ['Остап', 'Сулейман'] - Бендер
+print(multiply()) # args empty = return 0
+print(multiply(3, 5)) #  15 = ((1 * 3) * 5)
