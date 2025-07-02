@@ -1,56 +1,20 @@
-# Области видимости
+# return vs yield - возврат vs генератор
 
-# Shadows name 'square' from outer scope - локальная переменная перекрывает глобальную,
-# так как имеет больший авторитет внутри функции
-PI = 3.14
-words = ['check']
-square = 'Дворцовая площадь'
-
-def square_area(lenght, width):
-    square = lenght * width  # нужно переименовать "square" into "area"
-    print(f'Площадь площади "{square}" = {square}')  # Площадь площади "76800" = 76800
+def generate_list():
+    for item in range(5):
+        return item  # возвращает значение и закрывает функцию
 
 
-def circle_lenght(radius):
-    perimetr = 2 * PI * radius
-    print(f'Длина окружности с радиусом {radius} = {perimetr:.2f}')
+print(generate_list())  # 0
+array = generate_list()
+print(array)  # 0
 
 
-def print_array(array: list) -> None:
-    for item in array:
-        print(item)
+def generate_list_2():
+    for item in range(5):
+        yield item  # генератор, возвращает и НЕ закрывает функцию
 
 
-def print_array_2(array: list) -> None:
-    """
-    Использование внешней глобальной переменной в функции
-    :param array: массив
-    :return: значение из массива глобальной переменной
-    """
-    for item in words:
-        print(item)
-
-
-def greet(name):
-    print('Hi,', name)
-    name = 'friend'
-    print('Hello,', name)
-
-
-def main():
-    """
-    константы -> функции -> def main(): переменные, вызов функций
-    :return: возвращает все вызовы
-    """
-    text = ['test'] # псевдо-глобальное
-    square_area(320, 240)
-    circle_lenght(5)
-    print_array(text)
-    print_array_2(words)
-    print_array_2(['a', 'b', 'c'])
-    greet('Petr')  # вывод Hi, Petr // Hello, friend - так как переназначили name
-
-
-main()
-print('Давай встретимся, где ', square)
-print('Ну что встречаемся, где ', square)
+print(generate_list_2())  # <generator object generate_list_2 at 0x000001D01B45CDC0>
+array_2 = list(generate_list_2())
+print(array_2)  # [0, 1, 2, 3, 4]
