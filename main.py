@@ -1,53 +1,17 @@
-# Оператор is - проверяем сравнение ID объекта (его адрес)
-# == - сравнивает содержимое, наполняемость объектов
+# Множественный возврат - возврат нескольких значений из функции
+def coordinates():
+    return 5.4, 3.2, 5.6, 7.3, 6.9
+print(coordinates()) # возвращает картеж tuple (5.4, 3.2, 5.6, 7.3, 6.9)
+print(list(coordinates()))
 
-# a = 1
-# print(id(a))
-# a += 1
-# print(id(a))
-#
-#
-# b = [0]
-# print(id(b))
-# b[0] += 1
-# print(id(b))
-#
-#
-# c = {'c': 0}
-# print(id(c))
-# c['c'] += 1
-# print(id(c))
+x, y, *rest = coordinates()
+print(f'x = {x}, y = {y}, rest = {rest}') # распаковка x = 5.4, y = 3.2, rest = [5.6, 7.3, 6.9]
 
-# my_ref = ['колбаса', 'сыр', 'масло']
-# his_ref = ['колбаса', 'сыр', 'масло']
-# print(my_ref == his_ref)  # содержимое одинаково True
-# print(id(my_ref) == id(his_ref))  # два разных объекта False
-#
-# her_ref = my_ref
-# print(my_ref == her_ref)  # ссылка на один объект True
-# print(id(my_ref) == id(her_ref))  # ссылка на один объект True
-# print(my_ref is her_ref) # ссылка на один объект True
-#
-# your_ref = my_ref.copy()
-# print(my_ref == your_ref)  # содержимое одинаково True (полная копия)
-# print(id(my_ref) == id(your_ref))  # два разных объекта False
+x, *rest, y  = coordinates()
+print(f'x = {x}, rest = {rest}, y = {y}') # распаковка x = 5.4, rest = [3.2, 5.6, 7.3], y = 6.9
 
-# temp = None
-# print(type(temp)) # <class 'NoneType'>
-# print(temp is None) # True
-# if temp is None: # нельзя писать temp == None
-#     pass
+*rest, y = coordinates()
+print(f'rest = {rest}, y = {y}') # распаковка rest = [5.4, 3.2, 5.6, 7.3], y = 6.9
 
-
-# Функция выводит массив
-def print_array(array: list, start: int = None):
-    if start is not None and start > len(array):
-        return
-    if start is None:
-        start = 0
-    for item in range(start, len(array)):
-            print(array[item])
-
-
-a = [1, 2, 3]
-print_array(a, 5)
+*names, surname = 'Остап Сулейман Бендер'.split()
+print(names, '-', surname) # ['Остап', 'Сулейман'] - Бендер
