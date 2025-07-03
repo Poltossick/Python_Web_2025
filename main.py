@@ -1,29 +1,44 @@
-# анонимные функции (безымянные, однострочные)
-# lambda-функции
-# lambda <аргумент>: <выражение>
-# lambda <arg>: <return>
+ENGLISH_ABC = [chr(ch) for ch in range(ord('a'), ord('z') + 1)]
+# print(ENGLISH_ABC)
+RUSSIAN_ABC = [chr(ch) for ch in range(ord('а'), ord('я') + 1)] + ['ё']
+# print(RUSSIAN_ABC)
+ABC = (set(ENGLISH_ABC) ^ set(RUSSIAN_ABC) ^
+       set([x.upper() for x in ENGLISH_ABC]) ^
+       set([x.upper() for x in RUSSIAN_ABC]))
+print(ABC)
 
-is_longer_six = lambda word: len(word) > 6
-is_first_letter_a = lambda word: word[0] == 'c'
-is_string_contains = lambda s: 'ст' in s
-
-words = ['в','списке', 'останутся', 'слова', 'длина', 'которых',
-         'больше', 'шести']
-nums = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-
-# res = list(filter(lambda word: word[0] == 'с', words)) # -> ['списке', 'слова']
-# print(res)
-#
-# res = list(filter(lambda word: len(word) > 6, words)) # -> ['останутся', 'которых']
-# print(res)
-#
-# res = list(filter(lambda s: 'ст' in s, words)) # -> ['останутся', 'шести']
-# print(res)
-
-res = list(map(lambda num: num ** 2, (range(3, 16)))) # -> [9, 16, 25, 36, 49, 64, 81, 100, 121, 144, 169, 196, 225]
-res_2 = [num ** 2 for num in range(3, 16)] # -> [9, 16, 25, 36, 49, 64, 81, 100, 121, 144, 169, 196, 225]
+text = 'В Индии семерых инженеров уволили после постройки моста с 90-градусным поворотом.'
+res = ''.join(filter(lambda x: x in ABC ^ {' '}, text))  # -> удаление знаков препинания
 print(res)
 
-long_words = [len(word) > 6 for word in words] # -> выводит true and false
-long_words_2 = [word for word in words if len(word) > 6]  # -> ['останутся', 'которых']
-print(long_words_2)
+
+def remove_punctuation(txt):
+    """
+    Функция удаления знаков препинания
+    :param txt: исходный текст
+    :return: текст без знаков препинания
+    """
+    return ''.join(filter(lambda x: x in ABC ^ {' '}, text))
+
+
+def get_words(txt):
+    """
+    Функция вывода текста списком
+    :param txt: функция удаления знаков препинания
+    :return: текст списком
+    """
+    return remove_punctuation(txt).split()
+
+
+def long_words(txt, lenght=4):
+    """
+    Фильтр слов по длине 4
+    :param txt: функция вывода текста списком
+    :param lenght: длина слова
+    :return: список слов по длине 4
+    """
+    return list(filter(lambda word: len(word) >= lenght, get_words(txt)))
+
+
+print(long_words(text))
+
