@@ -1,9 +1,8 @@
 # Встроенные библиотеки
 # PyPI - Python Package Index (pypi.org)
-import pprint  # -> "pretty-printer"
-
-matrix = ['spam', 'eggs', 'lumberjack', 'knights', 'ni']
-matrix.insert(0, matrix)
-# print(matrix)
-pprint.pprint(matrix)
-
+# pip -> Pillow - установщик внешних библиотек
+# * -> pip freeze > requirements.txt -- создание файла зависимостей
+# * -> pip list -- список библиотек
+# * -> pip install <name> -- установить библиотеку
+# * -> pip install -r requirements.txt -- установка списка библиотек
+# * -> pip uninstall <name> -- снести библиотеку
