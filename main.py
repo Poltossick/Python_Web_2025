@@ -1,10 +1,10 @@
 # Пишем и подключаем свои модули
-from lib import *
 
-def main():
-    print(diff(7, 5))
-    print(summ(7, 5))
+from package_test import greet, add  # -> из разных файлов Python загрузились через один пакет
 
+print(greet('Мир!'))
+print(add(3, 5, 0))
 
-if __name__ == '__main__':
-    main()
+# from package_test.module import _hidden_function # '_' перед наименованием функции
+# # означает ее закрытость от внешнего пользования
+# print(_hidden_function())
