@@ -9,12 +9,23 @@ import pkg_resources
 
 document = DocxTemplate('documents/template.docx')
 
-content = {
+content = [
+    { # -> i
     'company': 'ООО "Зеленоглазое такси"',
     'employee': 'Петров П.П.',
     'position': 'Директор',
     'date' : '01/09/2024'
+},
+    { # -> i
+    'company': 'ООО "Пенгеймер"',
+    'employee': 'Иванов П.П.',
+    'position': 'Менеджер',
+    'date' : '01/09/2022'
 }
+]
 
-document.render(content)
-document.save('./documents/about.docx')
+count = 1
+for i in content:
+    document.render(i)
+    document.save(f'./documents/about{count}.docx')
+    count += 1
