@@ -1,56 +1,38 @@
-from PIL import Image, ImageDraw, ImageFont, ImageFilter, ImageEnhance
+# Documents
+# Word - DOCX (python-docx)
+from docx import Document
+from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
+from docx.shared import Cm, Inches, Mm, Pt # для размеров
 
-orig = Image.open('images/python.jpg')
-# размытие
-# blur_img = orig.filter(ImageFilter.GaussianBlur(radius=5))
-# blur_img.show()
+doc = Document()  # создание экземпляра документа
 
-# резкость
-# enhance_img = ImageEnhance.Sharpness(orig)
-# sharpened_img = enhance_img.enhance(50.0)
-# sharpened_img.show()
+# Добавление заголовка
 
-#получить контуры
-edges = orig.filter(ImageFilter.FIND_EDGES)
-edges.show()
+doc.add_heading('Отчет за месяц', 1)  # заголовок уровня один
+paragraph = doc.add_paragraph() # отступ
+paragraph = doc.add_paragraph('В этом отчете представлены ')
+# run - что-то внутри абзаца (текст, картинка)
+paragraph.add_run(' ключевые показатели').bold = True
 
-# orig = Image.open('images/sunny_day.jpg').convert('RGB')
-#
-# up = orig.crop((0,0,600,200))
-# down = orig.crop((0,200,60,400))
-# new = Image.new('RGB', (600,400))
-#
-# new.paste(down, (0,0))
-# new.paste(up, (0, 200))
-#
-# new.show()
+paragraph_format = paragraph.paragraph_format
+paragraph_format.alignment = WD_PARAGRAPH_ALIGNMENT.LEFT
+# маркированный список
+paragraph = doc.add_paragraph('Первый пункт', style='List Bullet')
+paragraph = doc.add_paragraph('Второй пункт', style='List Bullet')
+# нумерованный список
+paragraph = doc.add_paragraph('Первый пункт', style='List Number')
+paragraph = doc.add_paragraph('Второй пункт', style='List Number')
 
-# # https://fontsforyou.com/ru/specific-fonts/ttf-fonts/languageru
-# W = 600
-# H = 400
-#
-# image = Image.new('RGB',
-#                   (W, H),
-#                   (0, 163, 232))
-#
-# draw = ImageDraw.Draw(image)
-#
-# text = 'Солнечный день'
-# # draw.ellipse((470, -120, 800, 120), outline='yellow', fill='yellow')
-# draw.circle((600, 0), 100, fill='yellow')
-# font = ImageFont.truetype(
-#     # font='arial.ttf',  # можно использовать любой установленный шрифт
-#     font='fonts/Geisha.ttf',
-#     size=50
-# )
-# # Получаем размеры текста
-# _, _, w, h = draw.textbbox((0, 0), text, font=font)
-#
-# # Рассчитываем позицию для центрирования
-# x = (W - w) // 2
-# y = (H - h) // 2
-#
-# draw.text((x, y), text, fill=(255, 255, 0), font=font)
-#
-# image.save('images/sunny_day.jpg')
-# # image.show()
+paragraph = doc.add_paragraph() # отступ
+# добавляем и заполняем таблицу
+table = doc.add_table(3, 2)
+for i, a  in enumerate(table.rows):
+    for j, b  in enumerate(table.columns):
+        b.text = f'Строка {i + 1}, Столбец {j + 1}'
+
+doc.add_paragraph() # отступ
+doc.add_picture('images/sunny_day.jpg', width=Mm(50))
+
+
+
+doc.save('./documents/report.docx')
