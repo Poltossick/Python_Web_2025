@@ -1,10 +1,36 @@
-# Пишем и подключаем свои модули
+# Файлы
+# t - текстовые файлы (txt, html, xml)
+# b - бинарный файлы (jpg, avi, mp3)
+# w - write (запись файла, создается) - открывается очищенный файл
+# a - append (если не существует - создается, если существует - открывается весь с последними изменениями)
+# r - read (файл должен существовать, открывается ТОЛЬКО на прочтение) - по умолчанию
 
-from package_test import greet, add  # -> из разных файлов Python загрузились через один пакет
+# file_object = open('info.txt', 'wt', encoding='utf-8') # открывает файл
+# # print(file_object.mode)
+# # print(file_object.name)
+# # print(file_object.encoding) -> encoding='utf-8'
+#
+# count = file_object.write('Этот текст будет в файле')
+# print(f'В файл записан {count} байт!')
+#
+# file_object.close()
 
-print(greet('Мир!'))
-print(add(3, 5, 0))
+# file_obj = open('info.txt', 'rt', encoding='utf-8')
+#
+# text = file_obj.read(3)# -> в скобках пишется сколько байт читать
+# file_obj.read(6+7)
+# text += file_obj.read(8)
+# print('Вот что было в файле' , end=': ')
+# print(text)
+#
+# file_obj.close()
 
-# from package_test.module import _hidden_function # '_' перед наименованием функции
-# # означает ее закрытость от внешнего пользования
-# print(_hidden_function())
+# file_obj = open('info.txt', 'at', encoding='utf-8')
+# file_obj.write(f'\nЭто хороший текст!')
+# file_obj.close()
+
+file_obj = open('info.txt', 'at', encoding='utf-8')
+
+print('\nА вот еще одна строка.', file=file_obj)
+
+file_obj.close()
