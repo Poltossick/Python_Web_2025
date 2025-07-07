@@ -29,8 +29,25 @@
 # file_obj.write(f'\nЭто хороший текст!')
 # file_obj.close()
 
-file_obj = open('info.txt', 'at', encoding='utf-8')
+# file_obj = open('info.txt', 'at', encoding='utf-8')
+#
+# print('\nА вот еще одна строка.', file=file_obj)
+#
+# file_obj.close()
 
-print('\nА вот еще одна строка.', file=file_obj)
+file_obj = open('info.txt', 'rt', encoding='utf-8')
+
+while text := file_obj.readline():
+    for line, str in enumerate(file_obj, 1):
+        print(f'{line}. {str.rstrip('\n')}')
+
+
+# lst = file_obj.readlines()
+# lst = list(map(lambda x: x.strip('\n'), lst))
+# print(lst)
+
+# text = file_obj.read()
+# lst = text.splitlines()
+# print(lst)
 
 file_obj.close()
