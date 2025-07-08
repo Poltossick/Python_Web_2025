@@ -1,26 +1,63 @@
-# Библиотека pymorphy
-import pymorphy3
+# Регулярные выражения (поиск по паттерну)
+# Regular Expression - папка при написании "re"
+# r-строка — raw-string (сырая строка)
+import re
 
-# morph = pymorphy3.MorphAnalyzer() # -> морфологический анализ слова
+# pattern = r'\b\w{4}\b' # -> регулярное выражение = \b начинает с
+# # w любого символа, состоит {4} из 4 символов и \b заканчивает
+# test_string = 'дома было холодно'
 #
-# print(morph.parse('Дмитрий'))
-# """
-# [Parse(word='дмитрий', tag=OpencorporaTag('NOUN,anim,masc,Name sing,nomn'),
-# normal_form='дмитрий', score=0.985915, methods_stack=((DictionaryAnalyzer(),
-# 'дмитрий', 61, 0),)), Parse(word='дмитрий', tag=OpencorporaTag('NOUN,anim,femn,Name plur,gent'),
-# normal_form='дмитрия', score=0.007042, methods_stack=((DictionaryAnalyzer(), 'дмитрий', 64, 8),)),
-# Parse(word='дмитрий', tag=OpencorporaTag('NOUN,anim,femn,Name plur,accs'), normal_form='дмитрия',
-# score=0.007042, methods_stack=((DictionaryAnalyzer(), 'дмитрий', 64, 10),))]
-# """
+# result = re.search(pattern, test_string) # ищет только первое значение <re.Match object; span=(0, 4), match='дома'>
+# print(result) # -> <class 're.Match'>
+# result = re.findall(pattern, test_string) # ['дома', 'было']
+# print(result)
 
-from pymorphy3 import MorphAnalyzer
+# pattern = r'\d'
+# test_string = 'телефон 112'
+# result = re.findall(pattern, test_string)
+# print('Цифры есть') if result else print('Цифр нет')
 
-form = MorphAnalyzer().parse('бутылка')[0]
-for btl in reversed(range(99)):
-    print(f'В холодильнике {btl + 1} {form.make_agree_with_number(btl + 1).word} пива.')
-    print('Возьмем одну и выпьем')
-    if btl % 10 == 1 and btl != 11:
-        remain = 'Осталась '
-    else:
-        remain = 'Осталось '
-    print(f'{remain}{btl} {form.make_agree_with_number(btl).word} пива.')
+# pattern = r'\d{3}'
+# test_string = 'телефон 112'
+# result = re.findall(pattern, test_string)
+# print(result)
+
+# pattern = r'начало!\Z'
+# test_string = 'Главное - начало!'
+# result = re.findall(pattern, test_string) # -> ['начало!']
+# print(result)
+
+# pattern ='[0-5][0-9]'  # -> ['12', '59']
+# test_string = 'Время - 12:59'
+# result = re.findall(pattern, test_string)
+# print(result)
+#
+# pattern = '[а-яА-Я]' # -> ['В', 'р', 'е', 'м', 'я']
+# test_string = 'Время - 12:59'
+# result = re.findall(pattern, test_string)
+# print(result)
+
+# pattern = '[^емя:]' # -> ['В', 'р', ' ', '-', ' ', '1', '2', '5', '9']
+# test_string = 'Время - 12:59'
+# result = re.findall(pattern, test_string)
+# print(result)
+
+pattern = r'\((.+?)\)' # -> ['pattern'] -- (.+?) "." - любой символ, "+?" повторяется 1 и более раз
+test_string = 'Поиск по образцу (pattern)'
+result = re.findall(pattern, test_string)
+print(result)
+
+pattern = r'\((.*)\)' # -> ['pattern'] -- (.*) "." - любой символ, "*" от нуля до бесконечности
+test_string = 'Поиск по образцу (pattern)'
+result = re.findall(pattern, test_string)
+print(result)
+
+# pattern = 'o{2,5}' # -> ['oo', 'ooo', 'ooooo', 'ooooo', 'oo']
+# test_string = 'Gogle1, Google2, Gooogle3, Goooooole6, Gooooooole7'
+# result = re.findall(pattern, test_string)
+# print(result)
+
+# pattern = 'Go{2,}gle' # -> ['Google', 'Gooogle']
+# test_string = 'Gogle, Google, Gooogle'
+# result = re.findall(pattern, test_string)
+# print(result)
