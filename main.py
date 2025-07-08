@@ -1,51 +1,56 @@
-# Задача 1
+# Практикум (обучаемый словарь)
+import pickle
 
-# lst = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-# loop = True
-# while loop:
-#     try:
-#         index = int(input('Введите индекс: '))
-#         print(f'Число по индексу {index}: {lst[index]}')
-#     except ValueError:
-#         print('Индекс вне диапазона')
-#     except IndexError:
-#         print('Индекс от 0 до 8 включительно')
-#     # except Exception as exp:
-#     #     print('Ошибка', exp.__class__.__name__, ':', exp)
-#     else:
-#         loop = False
+# минимальная выерсия, если файл dict.dat отсутствует
+vocabulary = {
+    'стол': 'table',
+    'стул': 'chair',
+}
 
-# Задача 2
-# while True:
-#     a = input('Введите первое число: ')
-#     b = input('Введите второе число: ')
+def print_voc():
+    """
+    Функция для распечатки словаря
+    :return: выводит словарь
+    """
+    print('Сейчас словарь содержит: ')
+    for k, v in vocabulary.items():
+        print(k, '—', v) # -> — Alt + 0151
 
-# while True:
-#     a = input('Введите первое число: ')
-#     b = input('Введите второе число: ')
-#     try:
-#         if not int(b) != 0:
-#             raise ZeroDivisionError ('На ноль делить нельзя')
-#         else:
-#             print('Ответ:', int(a) / int(b))
-#             break
-#     except ZeroDivisionError as expt:
-#         print(expt)
-#     except ValueError:
-#         print('Должно быть число')
+
+
+try:
+    with open('dict.dat', 'rb') as dump_in:
+        vocabulary = pickle.load(dump_in)
+        print_voc()
+except FileNotFoundError:
+    with open('dict.dat', 'wb') as dump_out:
+        pickle.dump(vocabulary, dump_out)
+    print('Создан минимальный словарь: ')
+    print_voc()
+
 
 while True:
-    a = input('Введите первое число: ')
-    b = input('Введите второе число: ')
-    try:
-        res = int(a) / int(b)
-    except ZeroDivisionError:
-        print('На ноль делить нельзя')
-    except ValueError:
-        print('Должно быть число')
-    else:
-        print('Ответ:', res)
+    word = input('\nВведите слово для перевода или # для завершения: ').strip().lower()
+    if word == '#' or word == '№':
         break
+    if word in vocabulary.keys():
+        translate = vocabulary[word]
+        print(f'Слово "{word}" переводится как "{translate}".\n')
+    else:
+        print(f'Значение слова "{word}" отсутствует в словаре.\n')
+        new_key = f'А как слово "{word}" переводится.  \n'
+        new_key += f'Если ничего не вводите нажмите ENTER, \n'
+        new_key += f'или введите его здесь: '
+        new_word = input(new_key)
 
+        if new_word != '' or len(new_word) > 1:
+            vocabulary[word] = new_word
+            print(f'Слово "{word}" с переводом "{new_word}" внесено в словарь.')
+        else:
+            print('Ничего не введено или слишком короткое слово')
+            continue
 
+with open('dict.dat', 'wb') as dump_out:
+    pickle.dump(vocabulary, dump_out)
 
+print('До новых встреч!')
