@@ -1,18 +1,23 @@
-# ОС-модуль - работа с операционной системой
+# Сериализация
 
-file_obj = open('info.txt', 'rt', encoding='utf-8')
-res = []
-while temp := file_obj.readline().rstrip('\n'):
-    res += temp.split(', ')
-res = sorted(int(x) for x in set(res))
+import pickle
+import pprint
 
-print(res)
+# dic = {
+#     'table': 'стол',
+#     'chair': 'стул'
+# }
+#
+# with open('./documents/dictfile.dat', 'wb') as pcl:
+#     # dic - что сериализуем
+#     # pcl - куда сериализуем
+#     pickle.dump(dic, pcl)
 
-file_obj.close()
+# Десериализация
 
-
-file_obj = open('info.txt', 'rt', encoding='utf-8')
-
-print(file_obj.readlines())
-
-file_obj.close()
+# with open('./documents/dictfile.dat', 'rb') as pcl:
+#     # dic - что будет загружено
+#     # pcl - откуда будет загружено
+#     dic = pickle.load(pcl)
+#
+# pprint.pprint(dic, width=20)
