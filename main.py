@@ -21,3 +21,9 @@ import pprint
 #     dic = pickle.load(pcl)
 #
 # pprint.pprint(dic, width=20)
+
+from path_lib import *
+print(img_dir)
+print(font_dir)
+print(doc_dir)
+print(test)
