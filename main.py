@@ -1,9 +1,18 @@
 # ОС-модуль - работа с операционной системой
 
-import os
-path = os.getcwd()
-os.chdir(path + '/images')
+file_obj = open('info.txt', 'rt', encoding='utf-8')
+res = []
+while temp := file_obj.readline().rstrip('\n'):
+    res += temp.split(', ')
+res = sorted(int(x) for x in set(res))
 
-all_files = [f for f in os.listdir('.') if f.startswith('py')]
-# обращаемся к конкретной директории ('.') - выше ее поменяли
-print(all_files)
+print(res)
+
+file_obj.close()
+
+
+file_obj = open('info.txt', 'rt', encoding='utf-8')
+
+print(file_obj.readlines())
+
+file_obj.close()
