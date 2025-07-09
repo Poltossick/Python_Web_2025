@@ -2,15 +2,11 @@
 # инкапсуляция - сокрытие внутренней реализации с целью сокрытия внутренних данных
 
 # АНАЛИЗ предыдущих вызовов
-from lib import Car, Person, Clicker
+from lib import Car, Person, Clicker, Separator
 
-a = Clicker()
-a.click()
-a.click()
-a.click()
-a.click()
-a.click()
-print(a.click_counter())
+nm = Separator()
+for item in range(20):
+    nm.add_num(item)
+print(nm.get_odd())
+print(nm.get_even())
 
-a.reset()
-print(a.click_counter())

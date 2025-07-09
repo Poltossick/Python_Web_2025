@@ -1,3 +1,25 @@
+class Separator:
+    def __init__(self):
+        self._odd = [] # нечетные
+        self._even = [] # четные
+
+    def add_num(self, num):
+        if num % 2:
+            # self._odd += [num]
+            self._odd.append(num)
+        else:
+            # self._even+= [num]
+            self._even.append(num)
+
+    def get_odd(self):
+        return self._odd
+
+    def get_even(self):
+        return self._even
+
+
+
+
 class Clicker:
     def __init__(self):
         self._counter = 0
