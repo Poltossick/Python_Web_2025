@@ -2,11 +2,10 @@
 # инкапсуляция - сокрытие внутренней реализации с целью сокрытия внутренних данных
 
 # АНАЛИЗ предыдущих вызовов
-from lib import Car, Person, Clicker, Separator
+from lib import Sorter
 
-nm = Separator()
-for item in range(20):
-    nm.add_num(item)
-print(nm.get_odd())
-print(nm.get_even())
-
+wd = Sorter()
+wd.add_word('привет')
+wd.add_word('маша')
+wd.add_word('ура')
+print(wd.result())

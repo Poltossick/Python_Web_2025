@@ -1,3 +1,17 @@
+class Sorter:
+    def __init__(self):
+        self.words = []
+
+    def add_word(self, word):
+        self.words.append(word)
+
+    # def delete_word(self, word):
+    #     if
+
+    def result(self):
+        return sorted(self.words, key=lambda x: len(x))
+
+
 class Separator:
     def __init__(self):
         self._odd = [] # нечетные
