@@ -1,7 +1,10 @@
 attrs==25.3.0
 babel==2.17.0
+blinker==1.9.0
 certifi==2025.7.9
 charset-normalizer==3.4.2
+click==8.2.1
+colorama==0.4.6
 DAWG2-Python==0.9.0
 docxcompose==1.4.0
 docxtpl==0.20.0
@@ -9,7 +12,9 @@ easygui==0.98.3
 et_xmlfile==2.0.0
 flake8==7.3.0
 flake8-bugbear==24.12.12
+Flask==3.1.1
 idna==3.10
+itsdangerous==2.2.0
 Jinja2==3.1.6
 lxml==6.0.0
 MarkupSafe==3.0.2
@@ -27,3 +32,4 @@ setuptools==80.9.0
 six==1.17.0
 typing_extensions==4.14.1
 urllib3==2.5.0
+Werkzeug==3.1.3
