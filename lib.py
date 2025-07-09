@@ -5,8 +5,8 @@ class Sorter:
     def add_word(self, word):
         self.words.append(word)
 
-    # def delete_word(self, word):
-    #     if
+    def delete_word(self, word):
+        del self.words[word]
 
     def result(self):
         return sorted(self.words, key=lambda x: len(x))
