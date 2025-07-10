@@ -1,13 +1,38 @@
+
+
+class Stat:
+    def __init__(self, vals):
+        self._values = vals[:]  # получаем копию
+
+    def is_int(self):
+        return all(isinstance(item, int) for item in self._values)
+
+    def get_min(self):
+        if self.is_int():
+            return min(self._values)
+        return None
+
+    def get_max(self):
+        if self.is_int():
+            return max(self._values)
+        return None
+
+    def get_average(self):
+        if self.is_int():
+            return sum(self._values) / len(self._values)
+        return None
+
+
+
 class Selector:
     def __init__(self, vals):
-        self._values = vals[:] # получаем копию
+        self._values = vals[:]  # получаем копию
 
     def get_odd(self):
         return [item for item in self._values if item % 2]
+
     def get_even(self):
         return [item for item in self._values if item % 2 == 0]
-
-
 
 
 class Student:
@@ -71,21 +96,20 @@ class Rectangle:
         return self.height * self.width
 
 
-
 class Balance:
     def __init__(self):
         self.right = 0
         self.left = 0
 
-    def add_left(self, weight:int):  # в граммах
-        if weight <=0:
+    def add_left(self, weight: int):  # в граммах
+        if weight <= 0:
             print('Вес монетки не может быть меньше нуля или ноль')
         else:
             self.left += weight
 
-    def add_right(self, weight:int):  # в граммах
-        if weight <=0:
-            print( 'Вес монетки не может быть меньше нуля или ноль')
+    def add_right(self, weight: int):  # в граммах
+        if weight <= 0:
+            print('Вес монетки не может быть меньше нуля или ноль')
         else:
             self.right += weight
 
@@ -96,7 +120,6 @@ class Balance:
             return 'Правая монетка перевесила'
         elif self.right == self.left:
             return 'Вес монеток одинаков'
-
 
 
 class Sorter:
@@ -112,8 +135,8 @@ class Sorter:
 
 class Separator:
     def __init__(self):
-        self._odd = [] # нечетные
-        self._even = [] # четные
+        self._odd = []  # нечетные
+        self._even = []  # четные
 
     def add_num(self, num):
         if num % 2:
@@ -130,22 +153,18 @@ class Separator:
         return self._even
 
 
-
-
 class Clicker:
     def __init__(self):
         self._counter = 0
 
     def click(self):
-        self._counter +=1
+        self._counter += 1
 
     def click_counter(self):
         return self._counter
 
     def reset(self):
         self._counter = 0
-
-
 
 
 class Car:

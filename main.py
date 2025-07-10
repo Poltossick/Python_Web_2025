@@ -1,11 +1,10 @@
 # ООП - (polymorphism)
 
-from lib import Selector
+from lib import Stat
 
 lst = list(range(1, 15))
 
-sel = Selector(lst)
-print(sel.get_odd())
-print(sel.get_even())
-print(lst)
-
+st = Stat(lst)
+print(st.get_min())
+print(st.get_max())
+print(st.get_average())
