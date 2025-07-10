@@ -1,5 +1,28 @@
 
 
+class BankAccount:
+    def __init__(self, owner_name, balance=0):
+        self._owner_name = owner_name
+        self._balance = balance
+
+    def deposit(self, amount):
+        if amount > 0:
+            self._balance += amount
+            print(f'Депозит пополнен на сумму {amount}')
+        else:
+            print( f'Сумма пополнения должна быть больше 0')
+
+    def withdraw(self, amount):
+        if self._balance >= amount > 0:
+            self._balance -= amount
+            print(f'Со счета снята сумма {amount}')
+        else:
+            print( f'Некорректная сумма снятия')
+
+    def get_balance(self):
+        print(f'Остаток на счете - {self._balance}')
+
+
 class SquareFunction:
     def __init__(self, a, b, c):
         self._a = a
