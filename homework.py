@@ -1,14 +1,5 @@
-from lib import Balance
+from lib import Zoo, Horse
 
-
-b = Balance()
-
-b.add_left(5)
-b.add_right(4)
-b.add_right(2)
-b.add_left(5)
-b.add_right(4)
-
-
-
-print(b.result())
+obj = Zoo()
+print(obj.all_animals())
+print(obj.make_all_sounds())
