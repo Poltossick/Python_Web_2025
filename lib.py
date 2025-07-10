@@ -1,3 +1,15 @@
+class Selector:
+    def __init__(self, vals):
+        self._values = vals[:] # получаем копию
+
+    def get_odd(self):
+        return [item for item in self._values if item % 2]
+    def get_even(self):
+        return [item for item in self._values if item % 2 == 0]
+
+
+
+
 class Student:
     def __init__(self, name='N/A', university='N/A'):
         self._name = name

@@ -1,19 +1,11 @@
 # ООП - (polymorphism)
 
-from lib import Student, Employee, Person
+from lib import Selector
 
-people = [
-    Person('Alex'),
-    Student('','ITMO'),
-    Student('','SPBU'),
-    Employee(),
-]
+lst = list(range(1, 15))
 
-for  person in people:
-    if isinstance(person, Student):
-        print(person.get_university())
-    elif isinstance(person, Employee):
-        print(person.get_company())
-    else:
-        print(person.get_name())
+sel = Selector(lst)
+print(sel.get_odd())
+print(sel.get_even())
+print(lst)
 
