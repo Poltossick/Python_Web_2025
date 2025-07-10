@@ -1,10 +1,9 @@
-# ООП - (polymorphism)
+# ООП - (magic methods) - специальные методы
+# Exp: __init__
 
-from lib import Stat
+from lib import Point
 
-lst = list(range(1, 15))
+p1 = Point(5,4)
+p2 = Point(10,2)
 
-st = Stat(lst)
-print(st.get_min())
-print(st.get_max())
-print(st.get_average())
+print(p1 + p2)

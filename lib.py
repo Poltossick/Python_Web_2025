@@ -1,3 +1,23 @@
+from math import hypot
+
+class Point:
+    def __init__(self, x=0, y=0):
+        self.x = x
+        self.y = y
+
+    def __str__(self): # -> переопределение метода, для простой строки
+        return f'<Point: ({self.x}, {self.y})>'
+
+    def __repr__(self): # -> предоставление метода для читабельности, для списка объектов
+        return f'<Point: ({self.x}, {self.y})>'
+
+    def __sub__(self, other):
+        return Point(abs(self.x - other.x), abs(self.y - other.y))
+
+    def __add__(self, other):
+        return hypot(self.x - other.x, self.y - other.y)
+
+
 
 
 class Stat:
