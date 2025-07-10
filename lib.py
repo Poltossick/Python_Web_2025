@@ -1,3 +1,28 @@
+
+
+class MyTime:
+    def __init__(self, minutes, seconds):
+        if 0 <=  minutes < 60:
+            self._minutes = minutes
+        if 0 <=  seconds < 60:
+            self._seconds = seconds
+
+    def __str__(self):
+        return f'<Time: {self._minutes}:{self._seconds}>'
+
+    def __add__(self, other):
+        # if self._seconds + other._seconds >= 60:
+        #     return f'{self._minutes + other._minutes + 1} мин., {self._seconds + other._seconds - 60} сек.'
+        # else:
+        #     return f'{self._minutes + other._minutes} мин., {self._seconds + other._seconds} сек.'
+        m = self._minutes + other._minutes
+        s = self._seconds + other._seconds
+        m += s // 60
+        s = s % 60
+        m = m % 60
+        # return f'{m} мин., {s} сек.'
+        return f'{m:02}:{s:02}'
+
 from math import hypot
 
 class Point:

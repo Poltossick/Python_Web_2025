@@ -1,9 +1,9 @@
 # ООП - (magic methods) - специальные методы
 # Exp: __init__
 
-from lib import Point
+from lib import MyTime
 
-p1 = Point(5,4)
-p2 = Point(10,2)
+tm1 = MyTime(13,1)
+tm2 = MyTime(4, 0)
 
-print(p1 + p2)
+print(tm1 + tm2)
