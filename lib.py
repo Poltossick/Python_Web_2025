@@ -1,3 +1,42 @@
+
+from math import pi
+
+
+class Circle:
+    def __init__(self, radius):
+        self.radius = radius
+
+    def perimetr(self):
+        return 2 * pi * self.radius
+
+    def area(self):
+        return pi * (self.radius ** 2)
+
+
+class Square:
+    def __init__(self, side):
+        self.side = side
+
+    def perimetr(self):
+        return 4 * self.side
+
+    def area(self):
+        return self.side ** 2
+
+
+class Rectangle:
+    def __init__(self, height, width):
+        self.height = height
+        self.width = width
+
+    def perimetr(self):
+        return (self.height + self.width) * 2
+
+    def area(self):
+        return self.height * self.width
+
+
+
 class Balance:
     def __init__(self):
         self.right = 0
