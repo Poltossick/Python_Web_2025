@@ -1,9 +1,8 @@
 # ООП - (magic methods) - специальные методы
 # Exp: __init__
 
-from lib import MyTime
+from lib import SquareFunction
 
-tm1 = MyTime(13,1)
-tm2 = MyTime(4, 0)
+sqf = SquareFunction(11, 12, 13)
+print(sqf(5))
 
-print(tm1 + tm2)
