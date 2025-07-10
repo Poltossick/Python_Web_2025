@@ -1,3 +1,26 @@
+class Student:
+    def __init__(self, name='N/A', university='N/A'):
+        self._name = name
+        self._university = university
+
+    def get_university(self):
+        return self._university
+
+    def get_name(self):
+        return self._name
+
+
+class Employee:
+    def __init__(self, name='N/A', company='N/A'):
+        self._name = name
+        self._company = company
+
+    def get_company(self):
+        return self._company
+
+    def get_name(self):
+        return self._name
+
 
 from math import pi
 
@@ -175,13 +198,13 @@ class Person:
             print('Некорректный возраст — ', new_age)
 
     def get_name(self):  # getter
-        return f'Имя — {self._name}'
+        return self._name
 
     def get_age(self):  # getter
-        return f'Возраст — {self._age}'
+        return self._age
 
     def person_info(self):
-        print(f'Данные пользователя:\nИмя - {self._name}, возраст {self._age}')
+        print(f'Data\nName - {self._name}, age {self._age}')
 
     # __________________________________________________________________________________
     def summ(a, b):
