@@ -1,7 +1,34 @@
 # ООП - (inheritance) наследование
+from math import pi
+from abc import ABC, abstractmethod
+
+# object - класс всех классов, перво-класс
 
 # базовый, родительский, супер-класс
-class Rectangle:
+class Shape(ABC):
+    def info(self):
+        print(f'Класс: {self.__class__.__name__}')
+
+    @abstractmethod
+    def area(self):
+        pass
+
+    @abstractmethod
+    def perimetr(self):
+        pass
+
+class Circle(Shape):
+    def __init__(self, radius):
+        self.radius = radius
+
+    def perimetr(self):
+        return 2 * pi * self.radius
+
+    def area(self):
+        return pi * (self.radius ** 2)
+
+
+class Rectangle(Shape):
     def __init__(self, height, width):
         self.height = height
         self.width = width
@@ -15,11 +42,18 @@ class Rectangle:
 
 # производный, дочерний
 class Square(Rectangle):
-    def __init__(self,side):
+    def __init__(self, side):
         super().__init__(side, side)
 
 
+class Triangle(Square):
+    def __init__(self, side):
+        super().__init__(side)  # также можно если несколько супер-классов Square.__init__(self, side)
+        self.side = side
 
-sq = Square(5)
-print(sq.area())
-print(sq.perimetr())
+    def area(self):
+        return self.side ** 2 ** 1/3 / 4
+
+
+tr = Triangle(5)
+print(tr.area())
