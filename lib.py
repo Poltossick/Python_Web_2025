@@ -1,12 +1,36 @@
+class Balance:
+    def __init__(self):
+        self.right = 0
+        self.left = 0
+
+    def add_left(self, weight:int):  # в граммах
+        if weight <=0:
+            print('Вес монетки не может быть меньше нуля или ноль')
+        else:
+            self.left += weight
+
+    def add_right(self, weight:int):  # в граммах
+        if weight <=0:
+            print( 'Вес монетки не может быть меньше нуля или ноль')
+        else:
+            self.right += weight
+
+    def result(self) -> str:
+        if self.right < self.left:
+            return 'Левая монетка перевесила'
+        elif self.right > self.left:
+            return 'Правая монетка перевесила'
+        elif self.right == self.left:
+            return 'Вес монеток одинаков'
+
+
+
 class Sorter:
     def __init__(self):
         self.words = []
 
     def add_word(self, word):
         self.words.append(word)
-
-    def delete_word(self, word):
-        del self.words[word]
 
     def result(self):
         return sorted(self.words, key=lambda x: len(x))

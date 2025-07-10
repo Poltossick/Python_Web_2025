@@ -2,11 +2,7 @@
 # инкапсуляция - сокрытие внутренней реализации с целью сокрытия внутренних данных
 
 # АНАЛИЗ предыдущих вызовов
-from lib import Sorter
+from lib import Balance
 
-wd = Sorter()
-wd.add_word('привет')
-wd.add_word('маша')
-wd.add_word('ура')
-wd.delete_word('маша')
-print(wd.result())
+a = Balance()
+a.add_right(-1)
