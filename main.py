@@ -1,16 +1,15 @@
 # Протоколы
 
-# Transmission Control Protocol (TCP) — протокол управления передачей
-# Internet Protocol (IP) - разбивает на пакеты (IP-дейтаграммы)
-# TCP/IP
-# HTTP(S) - Hyper Text Transfer Protocol (Secured)
-# FTP - File Transfer Protocol
-# SMTP - Simple Mail Transfer Protocol
-# Хост-система
-# 1. Обязательная - IP-адрес: 195.34.32.11
-# 2. Необязательная - DNS (Domain Name System)
-# http(s)://www.yandex.рф//
-# ASCII %20, %2C
-# URL - Uniform Resource Locator
+import sys
 
-# http(s)://domain-name.zone/page1/?parameter1=value1&parameter2=value2
+# print(len(sys.argv))
+print('Я', sys.argv[0], 'и мой аргумент', sys.argv[1])
+
+if len(sys.argv) >=2:
+    match sys.argv[1]:
+        case 'p':
+            print('Привет')
+        case 'g':
+            print('Пока')
+        case _:
+            print('Ты шо, дружочек?')
