@@ -1,3 +1,62 @@
+class Animal:
+    def make_sound(self):
+        pass
+
+    def get_name(self):
+        return 'Животное'
+
+
+class Dog(Animal):
+    def get_name(self):
+        return 'Собака'
+
+    def make_sound(self):
+        return 'Гав-гав'
+
+    def info(self):
+        print(f'Класс: {self.__class__.__name__}')
+
+
+class Cat(Animal):
+    def get_name(self):
+        return 'Кот'
+
+    def make_sound(self):
+        return 'Мяу-мяу'
+
+    def info(self):
+        print(f'Класс: {self.__class__.__name__}')
+
+
+class Horse(Animal):
+    def get_name(self):
+        return 'Конь'
+
+    def make_sound(self):
+        return 'И-го-го'
+
+    def info(self):
+        print(f'Класс: {self.__class__.__name__}')
+
+
+class Zoo(Dog, Cat, Horse):
+    def zoo_animals(self):
+        print(f'Класс животного в зоопарке: '
+              f'{[base.__name__ for base in self.__class__.__bases__]}')
+
+    def make_all_sounds(self):
+        sounds = []
+        for base in self.__class__.__bases__:
+            if hasattr(base, 'make_sound'):  # hasattr - проверяет, существует атрибут
+                # или метод у объекта.
+                sounds.append(base.make_sound(self))
+        return f'Звуки животных: {', '.join(sounds)}'
+
+    def all_animals(self):
+        return (f'В зоопарке есть: '
+                f'{', '.join([base.get_name(self)
+                              for base in self.__class__.__bases__
+                              if hasattr(base, 'get_name')])}')
 
 
 class BankAccount:
@@ -10,14 +69,14 @@ class BankAccount:
             self._balance += amount
             print(f'Депозит пополнен на сумму {amount}')
         else:
-            print( f'Сумма пополнения должна быть больше 0')
+            print(f'Сумма пополнения должна быть больше 0')
 
     def withdraw(self, amount):
         if self._balance >= amount > 0:
             self._balance -= amount
             print(f'Со счета снята сумма {amount}')
         else:
-            print( f'Некорректная сумма снятия')
+            print(f'Некорректная сумма снятия')
 
     def get_balance(self):
         print(f'Остаток на счете - {self._balance}')
@@ -32,11 +91,12 @@ class SquareFunction:
     def __call__(self, x):
         return self._a * x ** 2 + self._b * x + self._c
 
+
 class MyTime:
     def __init__(self, minutes, seconds):
-        if 0 <=  minutes < 60:
+        if 0 <= minutes < 60:
             self._minutes = minutes
-        if 0 <=  seconds < 60:
+        if 0 <= seconds < 60:
             self._seconds = seconds
 
     def __str__(self):
@@ -55,17 +115,19 @@ class MyTime:
         # return f'{m} мин., {s} сек.'
         return f'{m:02}:{s:02}'
 
+
 from math import hypot
+
 
 class Point:
     def __init__(self, x=0, y=0):
         self.x = x
         self.y = y
 
-    def __str__(self): # -> переопределение метода, для простой строки
+    def __str__(self):  # -> переопределение метода, для простой строки
         return f'<Point: ({self.x}, {self.y})>'
 
-    def __repr__(self): # -> предоставление метода для читабельности, для списка объектов
+    def __repr__(self):  # -> предоставление метода для читабельности, для списка объектов
         return f'<Point: ({self.x}, {self.y})>'
 
     def __sub__(self, other):
@@ -73,8 +135,6 @@ class Point:
 
     def __add__(self, other):
         return hypot(self.x - other.x, self.y - other.y)
-
-
 
 
 class Stat:
@@ -98,7 +158,6 @@ class Stat:
         if self.is_int():
             return sum(self._values) / len(self._values)
         return None
-
 
 
 class Selector:
