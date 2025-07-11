@@ -1,15 +1,19 @@
-# Протоколы
+# Периодические задачи
 
-import sys
+import schedule
+import datetime
 
-# print(len(sys.argv))
-print('Я', sys.argv[0], 'и мой аргумент', sys.argv[1])
+i = 1
 
-if len(sys.argv) >=2:
-    match sys.argv[1]:
-        case 'p':
-            print('Привет')
-        case 'g':
-            print('Пока')
-        case _:
-            print('Ты шо, дружочек?')
+def job():
+    global i
+    print(f'Скрипт запустился {i} - раз')
+    i += 1
+    t = datetime.datetime.now()
+    print(f'Время: {t.strftime('%H:%M:%S')}')
+
+
+schedule.every(3).seconds.do(job)
+
+while True:
+    schedule.run_pending()
