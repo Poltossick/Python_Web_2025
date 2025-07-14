@@ -1,13 +1,24 @@
-# ZIP
+# JSON - (JavaScript Object Notation)
+#  Для чтения load() - читает из файла
+#  Для чтения loads() - читает строковое представление будущего объекта
 
-from zipfile import ZipFile
-import os
+import json
 
-csv_files = [f for f in os.listdir() if f.endswith('.csv')]
-with ZipFile('archive.zip', 'w') as myzip:
-    for file in csv_files:
-        myzip.write(file)
-        os.remove(file)
+with open('dogs.json', 'r') as dog:
+    data = json.load(dog)
 
-# with ZipFile('archive.zip', 'r') as zip_obj:
-#     zip_obj.extractall()
+print(data)
+
+print(f'Имя {data['name']}, возраст {data['age']} лет, питание {', '.join(data['meals'])}')
+
+for k, v in data.items():
+    if type(v) == list:
+        print(', '.join(v))
+    else:
+        print(f'{v}')
+
+
+with open('dogs.json', 'rt') as d:
+    temp = d.read()
+    data = json.loads(temp)
+    print(data)
