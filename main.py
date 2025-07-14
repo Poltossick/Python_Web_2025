@@ -9,16 +9,18 @@ with open('dogs.json', 'r') as dog:
 
 print(data)
 
-print(f'Имя {data['name']}, возраст {data['age']} лет, питание {', '.join(data['meals'])}')
+# print(f'Имя {data['name']}, возраст {data['age']} лет, питание {', '.join(data['meals'])}')
 
-for k, v in data.items():
-    if type(v) == list:
-        print(', '.join(v))
-    else:
-        print(f'{v}')
+for i in range(len(data)):
+    print(f'Питомец номер {i + 1}')
+    for k, v in data[i].items():
+        if type(v) == list:
+            print(', '.join(v))
+        else:
+            print(f'{v}')
 
 
-with open('dogs.json', 'rt') as d:
-    temp = d.read()
-    data = json.loads(temp)
-    print(data)
+# with open('dogs.json', 'rt') as d:
+#     temp = d.read()
+#     data = json.loads(temp)
+#     print(data)

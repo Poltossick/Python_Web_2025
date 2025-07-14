@@ -1,9 +1,20 @@
-{
-  "name": "Rex",
-  "photo": "Rex.jpg",
-  "age": 8,
-  "meals": [
-    "Purina",
-    "Grandorf"
-  ]
-}
+[
+  {
+    "name": "Rex",
+    "photo": "Rex.jpg",
+    "age": 8,
+    "meals": [
+      "Purina",
+      "Grandorf"
+    ]
+  },
+    {
+    "name": "Hatiko",
+    "photo": "Hatiko.jpg",
+    "age": 12,
+    "meals": [
+      "Purina",
+      "Royal Canin"
+    ]
+  }
+]
