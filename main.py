@@ -4,23 +4,19 @@
 
 import json
 
-with open('dogs.json', 'r') as dog:
-    data = json.load(dog)
+fruits = {
+    'ананас': 300,
+    'банан': 150,
+    'яблоко': 120,
+    'апельсин': 170,
+}
 
-print(data)
+with open ('fruits.json', 'wt', encoding='utf-8') as frt:
+    json.dump(fruits, frt, indent=4)
 
-# print(f'Имя {data['name']}, возраст {data['age']} лет, питание {', '.join(data['meals'])}')
-
-for i in range(len(data)):
-    print(f'Питомец номер {i + 1}')
-    for k, v in data[i].items():
-        if type(v) == list:
-            print(', '.join(v))
-        else:
-            print(f'{v}')
-
-
-# with open('dogs.json', 'rt') as d:
-#     temp = d.read()
-#     data = json.loads(temp)
-#     print(data)
+# data = json.dumps(fruits, indent=4)
+# print(data)
+#
+# char_code = 0x0441
+# character = chr(char_code)
+# print(character)
