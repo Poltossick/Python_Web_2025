@@ -1,22 +1,28 @@
-# JSON - (JavaScript Object Notation)
-#  Для чтения load() - читает из файла
-#  Для чтения loads() - читает строковое представление будущего объекта
+# Базы данных (чтение)
+"""
+1. Импорт библиотеки sqlite3
+2. Подключаемся к БД
+3. Назначить "курсор"
+4. Работаем в БД (запросы, ответы)
+5. Отключаемся от БД
+"""
+import sqlite3
 
-import json
+connection = sqlite3.connect('./database/movies.sqlite')
+cursor = connection.cursor()
+result = cursor.execute(
+    """
+    select title, year
+    from films
+    where genre = (
+    select id from genres
+    where title = 'ужасы')
+    and duration between 45 and 90
+    and title like 'С_к%'
+    order by duration
+    """
+)
+array = result.fetchall()
 
-fruits = {
-    'ананас': 300,
-    'банан': 150,
-    'яблоко': 120,
-    'апельсин': 170,
-}
-
-with open ('fruits.json', 'wt', encoding='utf-8') as frt:
-    json.dump(fruits, frt, indent=4)
-
-# data = json.dumps(fruits, indent=4)
-# print(data)
-#
-# char_code = 0x0441
-# character = chr(char_code)
-# print(character)
+for title, year in array:
+    print(title, year)
