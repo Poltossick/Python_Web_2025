@@ -1,15 +1,43 @@
 # Декораторы
 
-def outer():
-    x = 5
-    def inner():
-        nonlocal x
-        print('Nonlocal x=', x)
-        x = 10
-    inner()
-    print('New x=', x)
 
-outer()
+
+def logger(function):
+    counter = 0
+    def decorated_function(*args, **kwargs):
+        nonlocal counter
+        counter +=1
+        print(counter, '->', 'Аргументы:', args,
+              'Именованные аргументы:', kwargs)
+        result = function(*args, **kwargs)
+        print('____', 'Результат:', result)
+    return decorated_function
+
+@logger
+def make_burger(meal='Chicken', onion=False, tomato=False):
+    print('Bread')
+    if onion:
+        print('Onion')
+    print(meal)
+    if tomato:
+        print('Tomato')
+    print('Bread')
+
+make_burger(onion=True, tomato=True)
+make_burger('Fish', tomato=True)
+
+
+
+# def outer():
+#     x = 5
+#     def inner():
+#         nonlocal x
+#         print('Nonlocal x=', x)
+#         x = 10
+#     inner()
+#     print('New x=', x)
+#
+# outer()
 
 # def upper_case_print(old_function):
 #     def new_function(*args, **kwargs):
