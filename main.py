@@ -26,3 +26,21 @@ array = result.fetchall()
 
 for title, year in array:
     print(title, year)
+
+result = cursor.execute(
+    """
+    insert into
+    users(name, age)
+    VALUES('Марк', 45), ('Александр', 16)
+    """
+)
+result = cursor.execute(
+    """
+    update users
+    set age=48, name='Сергей'
+    where id=3
+"""
+)
+connection.commit()
+
+connection.close()
