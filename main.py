@@ -1,52 +1,39 @@
-# Базы данных (чтение)
-"""
-1. Импорт библиотеки sqlite3
-2. Подключаемся к БД
-3. Назначить "курсор"
-4. Работаем в БД (запросы, ответы)
-5. Отключаемся от БД
-"""
-import sqlite3
-import csv
+# Погода через API
 
-class Crud:
-    def __init__(self, db_path):
-        self._connection = sqlite3.connect(db_path)
-        self._cursor = self._connection.cursor()
+import requests
+from PIL import Image
+import io
 
-    def create(self, table_name, name, age):
-        result = self._cursor.execute(
-            f'insert into {table_name}(name, age) values(?, ?)',(name,int(age))
-            )
-        self._connection.commit()
+API_KEY = 'f0aafc86eb5c1b35632e4504ffd88dfc'
+URL = 'http://api.openweathermap.org/data/2.5/weather'
+CITY = 'Варшава'
 
-    def read(self, table_name):
-        result = self._cursor.execute(
-            f'select * from {table_name}'
-        ).fetchall()
+params = {
+    'q': CITY,
+    'appid': API_KEY,
+    'units': 'metric',
+    'lang': 'ru'
+}
 
-        for num, name, age in result:
-            print(num, name, age)
+response = requests.get(URL, params=params)
+result = response.json()
+weather = result['weather'][0]['description']
+temperature = result['main']['temp']
+humidity = result['main']['humidity']
+wind = result['wind']['speed']
 
-    def update(self, table_name, id_num, name=None, age=None):
-        result = self._cursor.execute(
-            f'update {table_name} set name="{name}", age={age} where id={id_num}'
-            )
-        self._connection.commit()
+data = result['coord']
+ll = f'{data['lon']},{data['lat']}'
 
-    def delete(self, in_mun, table_name):
-        result = self._cursor.execute(
-            f'delete from {table_name} where id = {in_mun}'
-        )
-        self._connection.commit()
-
-    def __del__(self):
-        self._cursor.close()
-        self._connection.close()
+link = f'https://static-maps.yandex.ru/1.x/?ll={ll}&spn=0.005,0.005&l=sat&pt={ll},pm2dgl'
+image = requests.get(link).content
+if image:
+    im = Image.open(io.BytesIO(image)).convert('RGB')
+    im.save('./images/mapvarshava.jpg')
 
 
-db = Crud('./database/movies.sqlite')
-db.delete(24, 'users')
-db.create('users', 'Иван', '87')
-db.update('users', 23, 'Николай', 72)
-db.read('users')
+
+print(f'Сегодня в городе {CITY}: {weather}')
+print(f'Температура: {temperature:.1f}°C')
+print(f'Влажность: {humidity}%')
+print(f'Скорость ветра: {wind} м/с')
