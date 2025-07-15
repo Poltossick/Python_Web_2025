@@ -1,31 +1,48 @@
 # Декораторы
 
+import time
 
 
-def logger(function):
-    counter = 0
-    def decorated_function(*args, **kwargs):
-        nonlocal counter
-        counter +=1
-        print(counter, '->', 'Аргументы:', args,
-              'Именованные аргументы:', kwargs)
+def timeit(function):
+    def wrapper(*args, **kwargs):
+        start = time.time()
         result = function(*args, **kwargs)
-        print('____', 'Результат:', result)
-    return decorated_function
+        finish = time.time()
+        print(f'Функция исполнялась: {finish - start:.4f} сек.')
+        return result
 
-@logger
-def make_burger(meal='Chicken', onion=False, tomato=False):
-    print('Bread')
-    if onion:
-        print('Onion')
-    print(meal)
-    if tomato:
-        print('Tomato')
-    print('Bread')
+    return wrapper
 
-make_burger(onion=True, tomato=True)
-make_burger('Fish', tomato=True)
+@timeit
+def test():
+    time.sleep(1.184856218)
 
+test()
+
+
+# def logger(function):
+#     counter = 0
+#     def decorated_function(*args, **kwargs):
+#         nonlocal counter
+#         counter +=1
+#         print(counter, '->', 'Аргументы:', args,
+#               'Именованные аргументы:', kwargs)
+#         result = function(*args, **kwargs)
+#         print('____', 'Результат:', result)
+#     return decorated_function
+#
+# @logger
+# def make_burger(meal='Chicken', onion=False, tomato=False):
+#     print('Bread')
+#     if onion:
+#         print('Onion')
+#     print(meal)
+#     if tomato:
+#         print('Tomato')
+#     print('Bread')
+#
+# make_burger(onion=True, tomato=True)
+# make_burger('Fish', tomato=True)
 
 
 # def outer():
