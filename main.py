@@ -9,10 +9,12 @@ app = Flask(__name__)
 def index():
     return 'Привет, Flask'
 
+
 @app.route('/about')
 def about():
     print('Вызвана функция about')
     return 'О нас'
+
 
 @app.route('/countdown')
 def countdown():
@@ -20,9 +22,11 @@ def countdown():
     lst.append('Полетели')
     return '<br>'.join(lst)
 
+
 @app.route('/image')
 def show_image():
     return f'<img src="{url_for('static', filename='img/python.jpg')}">'
+
 
 @app.route('/sample-page')
 def sample_page():
@@ -40,6 +44,12 @@ def sample_page():
             </body>
             </html>
     """
+
+
+@app.route('/sample-page2')
+def sample_page2():
+    with open('temp.html', 'r', encoding='utf-8') as html:
+        return html.read()
 
 
 if __name__ == '__main__':
