@@ -91,20 +91,20 @@ def get_users(id_num):
     connection.close()
     return f'{name}, {city}'
 
-@app.route('/get-users2/<city>')
-def get_users2(city):
-    connection = sqlite3.connect('./static/database/movies.sqlite')
-    cursor = connection.cursor()
-    query = cursor.execute(
-        """
-        select name, city from users
-        where city = ?
-        """,(str(city),)
-    ).fetchall()
-    for k, v in enumerate(query):
-        return f'{k}, {v}'
-    cursor.close()
-    connection.close()
+# @app.route('/get-users2/<city>')
+# def get_users2(city):
+#     connection = sqlite3.connect('./static/database/movies.sqlite')
+#     cursor = connection.cursor()
+#     query = cursor.execute(
+#         """
+#         select name, city from users
+#         where city = ?
+#         """,(str(city),)
+#     ).fetchall()
+#     for k, v in enumerate(query):
+#         return f'{k}, {v}'
+#     cursor.close()
+#     connection.close()
 
 
 if __name__ == '__main__':
