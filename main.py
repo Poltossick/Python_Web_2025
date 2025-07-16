@@ -51,6 +51,18 @@ def sample_page2():
     with open('temp.html', 'r', encoding='utf-8') as html:
         return html.read()
 
+"""x = 5 #  так делать нельзя
+@app.route('/1') 
+def show_num():
+    global x
+    x += 1
+    return str(x)
+"""
+
+@app.route('/greeting/<user>')
+def greeting(user):
+    return f'Добро пожаловать, {user}'
+
 
 if __name__ == '__main__':
     app.run(host='localhost', port=5000, debug=True)
