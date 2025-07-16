@@ -1,89 +1,46 @@
-# Декораторы
+# Введение во Flask
+from flask import Flask, url_for
 
-import time
-
-
-def timeit(function):
-    def wrapper(*args, **kwargs):
-        start = time.time()
-        result = function(*args, **kwargs)
-        finish = time.time()
-        print(f'Функция исполнялась: {finish - start:.4f} сек.')
-        return result
-
-    return wrapper
-
-@timeit
-def test():
-    time.sleep(1.184856218)
-
-test()
+app = Flask(__name__)
 
 
-# def logger(function):
-#     counter = 0
-#     def decorated_function(*args, **kwargs):
-#         nonlocal counter
-#         counter +=1
-#         print(counter, '->', 'Аргументы:', args,
-#               'Именованные аргументы:', kwargs)
-#         result = function(*args, **kwargs)
-#         print('____', 'Результат:', result)
-#     return decorated_function
-#
-# @logger
-# def make_burger(meal='Chicken', onion=False, tomato=False):
-#     print('Bread')
-#     if onion:
-#         print('Onion')
-#     print(meal)
-#     if tomato:
-#         print('Tomato')
-#     print('Bread')
-#
-# make_burger(onion=True, tomato=True)
-# make_burger('Fish', tomato=True)
+@app.route('/')
+@app.route('/index')
+def index():
+    return 'Привет, Flask'
+
+@app.route('/about')
+def about():
+    print('Вызвана функция about')
+    return 'О нас'
+
+@app.route('/countdown')
+def countdown():
+    lst = [str(x) for x in reversed(range(10))]
+    lst.append('Полетели')
+    return '<br>'.join(lst)
+
+@app.route('/image')
+def show_image():
+    return f'<img src="{url_for('static', filename='img/python.jpg')}">'
+
+@app.route('/sample-page')
+def sample_page():
+    return f"""<!doctype html>
+            <html lang="ru">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport"
+                      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+                <meta http-equiv="X-UA-Compatible" content="ie=edge">
+                <title>Картинка Том и Джерри</title>
+            </head>
+            <body>
+             <img src="{url_for('static', filename='img/python.jpg')}" alt="Python">
+            </body>
+            </html>
+    """
 
 
-# def outer():
-#     x = 5
-#     def inner():
-#         nonlocal x
-#         print('Nonlocal x=', x)
-#         x = 10
-#     inner()
-#     print('New x=', x)
-#
-# outer()
-
-# def upper_case_print(old_function):
-#     def new_function(*args, **kwargs):
-#         case = kwargs.pop('case', None)
-#         if case == 'U':
-#             args = [str(arg).upper() for arg in args]
-#         elif case == 'L':
-#             args = [str(arg).lower() for arg in args]
-#         return old_function(*args, **kwargs)
-#     return new_function
-#
-#
-# new_print = upper_case_print(print)
-# new_print('Привет, Андрей')
-# new_print('Привет, Андрей', case='U')
-# new_print('Привет, Андрей', case='L')
-
-# def answer(question):
-#     return 'Думайте сами'
-#
-# def dialog():
-#     def answer(question):
-#         if question.lower().startswith('когда'):
-#             return 'Никогда'
-#         else:
-#             return 'Упс'
-#     question = input()
-#     while question != '':
-#         print(answer(question))
-#         question = input()
-#
-# dialog()
+if __name__ == '__main__':
+    app.run(host='localhost', port=5000, debug=True)
