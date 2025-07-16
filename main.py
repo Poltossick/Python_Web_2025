@@ -51,7 +51,8 @@ def sample_page2():
     with open('temp.html', 'r', encoding='utf-8') as html:
         return html.read()
 
-"""x = 5 #  так делать нельзя
+"""
+x = 5 #  так делать нельзя
 @app.route('/1') 
 def show_num():
     global x
@@ -59,9 +60,51 @@ def show_num():
     return str(x)
 """
 
-@app.route('/greeting/<user>')
-def greeting(user):
-    return f'Добро пожаловать, {user}'
+"""
+<string> - по умолчанию строка
+<int:number> - целое число
+<float:number> - десятичное число
+<path:p> - может содержать слэши для указания пути
+<uuid:id> - строка-идентификатор (16-байт в HEX-формате)
+"""
+
+
+@app.route('/greeting/<user>/<int:id_num>')
+def greeting(user, id_num):
+    return f'Добро пожаловать, {user} с id={id_num}'
+
+import sqlite3
+
+@app.route('/get-users/<int:id_num>')
+def get_users(id_num):
+    connection = sqlite3.connect('./static/database/movies.sqlite')
+    cursor = connection.cursor()
+    query = cursor.execute(
+        f"""
+        select name, city from users
+        where trip_id = {id_num}
+        """
+    )
+    array = query.fetchall()
+    name, city = array[len(array)-1]
+    cursor.close()
+    connection.close()
+    return f'{name}, {city}'
+
+@app.route('/get-users2/<city>')
+def get_users2(city):
+    connection = sqlite3.connect('./static/database/movies.sqlite')
+    cursor = connection.cursor()
+    query = cursor.execute(
+        """
+        select name, city from users
+        where city = ?
+        """,(str(city),)
+    ).fetchall()
+    for k, v in enumerate(query):
+        return f'{k}, {v}'
+    cursor.close()
+    connection.close()
 
 
 if __name__ == '__main__':
