@@ -1,11 +1,16 @@
 # Введение во Flask
 import os.path
 
+from openpyxl.styles.builtins import title
+
+from forms.loginform import LoginForm
+
 from flask import Flask, url_for, request, render_template
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'uploads/'
+app.config['SECRET_KEY'] = 'just_secret_key'
 ALLOWED_EXTENSION = ['txt', 'pdf', 'jpg', 'png', 'csv', 'xlsx']
 
 
@@ -14,19 +19,39 @@ def allowed_file(filename):
             filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSION)
 
 
-# @app.route('/index')
+@app.route('/index')
 @app.route('/')
 def index():
     params = {}
     params['user'] = 'аноним'
     params['title'] = 'приветствие'
     params['weather'] = 'сегодня жара'
-    return render_template('index.html',**params)
+    return render_template('index.html', **params)
+
+
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
+
+@app.route('/contacts')
+def contacts():
+    return render_template('contacts.html')
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    if form.validate_on_submit():
+        return index()
+    return render_template('login.html', title='Авторизация', form=form)
+
 
 @app.route('/numbers/<int:number>')
 def odd_even(number):
     return render_template('numbers.html',
                            title='Чет-нечет', number=number)
+
 
 @app.route('/deals')
 def deals():
@@ -35,18 +60,13 @@ def deals():
     return render_template('printlist.html',
                            deals=deal)
 
+
 @app.route('/queue')
 def queue():
     return render_template('vars.html',
                            title='Электронная очередь')
 
 
-# @app.route('/about')
-# def about():
-#     print('Вызвана функция about')
-#     return 'О нас'
-#
-#
 # @app.route('/countdown')
 # def countdown():
 #     lst = [str(x) for x in reversed(range(10))]
@@ -150,7 +170,7 @@ def queue():
 @app.route('/upload', methods=['POST', 'GET'])
 def upload():
     if request.method == 'GET':
-        with open('upload.html', 'r', encoding='utf-8') as html:
+        with open('old/upload.html', 'r', encoding='utf-8') as html:
             return html.read()
     elif request.method == 'POST':
         if 'file' not in request.files:

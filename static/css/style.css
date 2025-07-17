@@ -12,3 +12,7 @@ form.login_form{
     border: 3px solid #d22e34;
     border-radius: 10px;
 }
+
+.error {
+    color: #d22e34;
+}
