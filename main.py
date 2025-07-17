@@ -17,9 +17,23 @@ def allowed_file(filename):
 # @app.route('/index')
 @app.route('/')
 def index():
-    username = 'аноним'
-    return render_template('index.html',
-                           title='Приветствие', user=username)
+    params = {}
+    params['user'] = 'аноним'
+    params['title'] = 'приветствие'
+    params['weather'] = 'сегодня жара'
+    return render_template('index.html',**params)
+
+@app.route('/numbers/<int:number>')
+def odd_even(number):
+    return render_template('numbers.html',
+                           title='Чет-нечет', number=number)
+
+@app.route('/deals')
+def deals():
+    deal = ['Помыть посуду', 'Выгулять собаку',
+            'Снять показания счетчика', 'Оплатить коммуналку']
+    return render_template('printlist.html',
+                           deals=deal)
 
 
 # @app.route('/about')
