@@ -35,6 +35,11 @@ def deals():
     return render_template('printlist.html',
                            deals=deal)
 
+@app.route('/queue')
+def queue():
+    return render_template('vars.html',
+                           title='Электронная очередь')
+
 
 # @app.route('/about')
 # def about():
