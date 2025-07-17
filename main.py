@@ -1,12 +1,11 @@
 # Введение во Flask
 import os.path
-
 from openpyxl.styles.builtins import title
-
 from forms.loginform import LoginForm
-
 from flask import Flask, url_for, request, render_template
 from werkzeug.utils import secure_filename
+from data import db_session
+import sqlite3
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'uploads/'
@@ -189,4 +188,5 @@ def upload():
 
 
 if __name__ == '__main__':
+    db_session.global_init('database/news.sqlite')
     app.run(host='localhost', port=5000, debug=True)
