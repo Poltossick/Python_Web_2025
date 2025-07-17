@@ -1,15 +1,27 @@
 # Введение во Flask
-from flask import Flask, url_for, request
+import os.path
+
+from flask import Flask, url_for, request, render_template
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = 'uploads/'
+ALLOWED_EXTENSION = ['txt', 'pdf', 'jpg', 'png', 'csv', 'xlsx']
 
 
-# @app.route('/')
+def allowed_file(filename):
+    return ('.' in filename and
+            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSION)
+
+
 # @app.route('/index')
-# def index():
-#     return 'Привет, Flask'
-#
-#
+@app.route('/')
+def index():
+    username = 'аноним'
+    return render_template('index.html',
+                           title='Приветствие', user=username)
+
+
 # @app.route('/about')
 # def about():
 #     print('Вызвана функция about')
@@ -106,15 +118,35 @@ app = Flask(__name__)
 #     cursor.close()
 #     connection.close()
 
-@app.route('/form-test', methods=['POST', 'GET'])
-def form_test():
+# @app.route('/form-test', methods=['POST', 'GET'])
+# def form_test():
+#     if request.method == 'GET':
+#         with open('form.html', 'r', encoding='utf-8') as html:
+#             return html.read()
+#     elif request.method == 'POST':
+#         print(request.form['gender'])
+#         print(request.form['email'])
+#         return 'Форма успешно отправлена'
+
+@app.route('/upload', methods=['POST', 'GET'])
+def upload():
     if request.method == 'GET':
-        with open('form.html', 'r', encoding='utf-8') as html:
+        with open('upload.html', 'r', encoding='utf-8') as html:
             return html.read()
     elif request.method == 'POST':
-        print(request.form['gender'])
-        print(request.form['email'])
-        return 'Форма успешно отправлена'
+        if 'file' not in request.files:
+            return 'Файл не был выбран'
+
+        file = request.files['file']
+
+        if file.filename == '':
+            return 'Файл не был выбран'
+
+        if file and allowed_file(file.filename):
+            new_name = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], new_name))
+            return f'Файл {new_name} загружен успешно'
+    return 'Ошибка загрузки'
 
 
 if __name__ == '__main__':
