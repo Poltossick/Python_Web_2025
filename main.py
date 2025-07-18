@@ -5,6 +5,8 @@ from forms.loginform import LoginForm
 from flask import Flask, url_for, request, render_template
 from werkzeug.utils import secure_filename
 from data import db_session
+from data.users import User
+
 import sqlite3
 from sqlite3 import Error
 
@@ -200,4 +202,11 @@ def upload():
 
 if __name__ == '__main__':
     db_session.global_init('database/news.sqlite')
-    app.run(host='localhost', port=5000, debug=True)
+    # app.run(host='localhost', port=5000, debug=True)
+    user = User()
+    user.name = 'User'
+    user.about = 'Writer'
+    user.email = 'person@email.ru'
+    db_sess = db_session.create_session()
+    db_sess.add(user)
+    db_sess.commit()
