@@ -200,33 +200,39 @@ def upload():
             return f'Файл {new_name} загружен успешно'
     return 'Ошибка загрузки'
 
+@app.route('/news')
+def publicnews():
+    db_sess = db_session.create_session()
+    p_news = db_sess.query(News).filter(News.is_private != True).all()
+    return render_template('news.html',
+                           title='Новости', news=p_news)
 
 if __name__ == '__main__':
     db_session.global_init('database/news.sqlite')
-    # app.run(host='localhost', port=5000, debug=True)
-    user = User()
+    app.run(host='localhost', port=5000, debug=True)
+    # user = User()
+    # # db_sess = db_session.create_session()
+    # # user = db_sess.query(User).filter(User.id == 1).first()
+    # # user.set_username('Mark')
+    # # noone = db_sess.query(User).filter(User.id == 2).first()
+    # # db_sess.delete(noone)
+    # # db_sess.commit()
+    # # print(user)
+    # # user.name = 'Woman'
+    # # user.about = 'WomanCat'
+    # # user.email = 'woman@email.ru'
+    # # db_sess = db_session.create_session()
+    # # db_sess.add(user)
+    # # db_sess.commit()
+    # news = News()
     # db_sess = db_session.create_session()
-    # user = db_sess.query(User).filter(User.id == 1).first()
-    # user.set_username('Mark')
-    # noone = db_sess.query(User).filter(User.id == 2).first()
-    # db_sess.delete(noone)
-    # db_sess.commit()
-    # print(user)
-    # user.name = 'Woman'
-    # user.about = 'WomanCat'
-    # user.email = 'woman@email.ru'
-    # db_sess = db_session.create_session()
-    # db_sess.add(user)
-    # db_sess.commit()
-    news = News()
-    db_sess = db_session.create_session()
-    users_user = db_sess.query(User).filter(User.id == 1).first()
-    # news.title = 'Погода в СПб'
-    # news.user = users_user
-    # news.content = 'Погода сегодня шикарная'
-    # users_user = db_sess.query(User).filter(User.id == 2).first()
-    for news in users_user.news:
-        print(news)
-    # users_user.news.append(news)
-    # # db_sess.add(news)
-    # db_sess.commit()
+    # users_user = db_sess.query(User).filter(User.id == 1).first()
+    # # news.title = 'Погода в СПб'
+    # # news.user = users_user
+    # # news.content = 'Погода сегодня шикарная'
+    # # users_user = db_sess.query(User).filter(User.id == 2).first()
+    # for news in users_user.news:
+    #     print(news)
+    # # users_user.news.append(news)
+    # # # db_sess.add(news)
+    # # db_sess.commit()
