@@ -1,5 +1,9 @@
 import datetime
+from tabnanny import check
+
 import sqlalchemy
+from werkzeug.security import generate_password_hash, check_password_hash
+
 from .db_session import SqlAlchemyBase
 from sqlalchemy import orm
 
@@ -24,3 +28,9 @@ class User(SqlAlchemyBase):
 
     def set_username(self, newname):
         self.name = newname
+
+    def set_password(self, password):
+        self.hashed_password = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.hashed_password, password)
