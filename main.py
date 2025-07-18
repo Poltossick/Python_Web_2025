@@ -33,6 +33,9 @@ def index():
 def about():
     return render_template('about.html')
 
+@app.errorhandler(404)
+def not_found(e):
+    return render_template('404.html', title='Страница не найдена')
 
 @app.route('/contacts')
 def contacts():
