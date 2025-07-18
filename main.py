@@ -6,6 +6,7 @@ from flask import Flask, url_for, request, render_template
 from werkzeug.utils import secure_filename
 from data import db_session
 from data.users import User
+from data.news import News
 
 import sqlite3
 from sqlite3 import Error
@@ -204,9 +205,29 @@ if __name__ == '__main__':
     db_session.global_init('database/news.sqlite')
     # app.run(host='localhost', port=5000, debug=True)
     user = User()
-    user.name = 'User'
-    user.about = 'Writer'
-    user.email = 'person@email.ru'
+    # db_sess = db_session.create_session()
+    # user = db_sess.query(User).filter(User.id == 1).first()
+    # user.set_username('Mark')
+    # noone = db_sess.query(User).filter(User.id == 2).first()
+    # db_sess.delete(noone)
+    # db_sess.commit()
+    # print(user)
+    # user.name = 'Woman'
+    # user.about = 'WomanCat'
+    # user.email = 'woman@email.ru'
+    # db_sess = db_session.create_session()
+    # db_sess.add(user)
+    # db_sess.commit()
+    news = News()
     db_sess = db_session.create_session()
-    db_sess.add(user)
+    users_user = db_sess.query(User).filter(User.id == 1).first()
+    # news.title = 'Погода в СПб'
+    # news.user = users_user
+    # news.content = 'Погода сегодня шикарная'
+    # users_user = db_sess.query(User).filter(User.id == 2).first()
+    news = News(title='Какой чудесный пень',
+                content='Какой чудесный я и песенка моя',
+                is_private=False)
+    users_user.news.append(news)
+    # db_sess.add(news)
     db_sess.commit()
