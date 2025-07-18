@@ -10,7 +10,7 @@ from werkzeug.utils import secure_filename, redirect
 from data import db_session
 from data.users import User
 from data.news import News
-from flask_login import LoginManager, login_user
+from flask_login import LoginManager, login_user, logout_user
 
 import sqlite3
 from sqlite3 import Error
@@ -71,6 +71,14 @@ def login():
                                message='Неверный логин или пароль')
     return render_template('login.html', title='Авторизация', form=form)
 
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect('/login')
+
+@app.route('/personal-page')
+def personal_page():
+    return redirect('/')
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
