@@ -1,9 +1,12 @@
 # Введение во Flask
 import os.path
 from openpyxl.styles.builtins import title
+from pyexpat.errors import messages
+
 from forms.loginform import LoginForm
-from flask import Flask, url_for, request, render_template
-from werkzeug.utils import secure_filename
+from forms.user import Register
+from flask import Flask, url_for, request, render_template, redirect
+from werkzeug.utils import secure_filename, redirect
 from data import db_session
 from data.users import User
 from data.news import News
@@ -36,9 +39,11 @@ def index():
 def about():
     return render_template('about.html')
 
+
 @app.errorhandler(404)
 def not_found(e):
     return render_template('404.html', title='Страница не найдена')
+
 
 @app.route('/contacts')
 def contacts():
@@ -51,6 +56,30 @@ def login():
     if form.validate_on_submit():
         return index()
     return render_template('login.html', title='Авторизация', form=form)
+
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    form = Register()
+    if form.validate_on_submit(): # то же самое, что и request.method == 'Post'
+        if form.password.data != form.password_again.data:
+            return render_template('register.html', title='Регистрация',
+                                   message='Пароли не совпадают', form=form)
+        db_sess = db_session.create_session()
+        if db_sess.query(User).filter(User.email == form.email.data).first():
+            return render_template('register.html', title='Регистрация',
+                                   message='Такой пользователь уже зарегистрирован', form=form)
+        user = User(
+            name=form.login.data,
+            email=form.email.data,
+            about=form.about.data,
+        )
+        user.set_password(form.password.data)
+        db_sess.add(user)
+        db_sess.commit()
+        return redirect('/login')
+    return render_template('register.html',
+                           title='Регистрация', form=form)
 
 
 @app.route('/numbers/<int:number>')
@@ -71,6 +100,7 @@ def deals():
 def queue():
     return render_template('vars.html',
                            title='Электронная очередь')
+
 
 @app.route('/get-user/')
 @app.route('/get-user/<int:id_num>')
@@ -109,6 +139,7 @@ def get_user(id_num=None):
         if con:
             cur.close()
             con.close()
+
 
 # @app.route('/countdown')
 # def countdown():
@@ -200,12 +231,14 @@ def upload():
             return f'Файл {new_name} загружен успешно'
     return 'Ошибка загрузки'
 
+
 @app.route('/news')
 def publicnews():
     db_sess = db_session.create_session()
     p_news = db_sess.query(News).filter(News.is_private != True).all()
     return render_template('news.html',
                            title='Новости', news=p_news)
+
 
 if __name__ == '__main__':
     db_session.global_init('database/news.sqlite')
