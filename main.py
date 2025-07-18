@@ -225,9 +225,8 @@ if __name__ == '__main__':
     # news.user = users_user
     # news.content = 'Погода сегодня шикарная'
     # users_user = db_sess.query(User).filter(User.id == 2).first()
-    news = News(title='Какой чудесный пень',
-                content='Какой чудесный я и песенка моя',
-                is_private=False)
-    users_user.news.append(news)
-    # db_sess.add(news)
-    db_sess.commit()
+    for news in users_user.news:
+        print(news)
+    # users_user.news.append(news)
+    # # db_sess.add(news)
+    # db_sess.commit()

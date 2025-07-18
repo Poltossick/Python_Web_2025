@@ -19,4 +19,4 @@ class News(SqlAlchemyBase):
     user = orm.relationship('User')
 
     def __repr__(self):
-        return f' <User: {self.title}>'
+        return f' <News {self.title}: {self.content}>'
