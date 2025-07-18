@@ -6,6 +6,7 @@ from flask import Flask, url_for, request, render_template
 from werkzeug.utils import secure_filename
 from data import db_session
 import sqlite3
+from sqlite3 import Error
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'uploads/'
@@ -65,6 +66,43 @@ def queue():
     return render_template('vars.html',
                            title='Электронная очередь')
 
+@app.route('/get-user/')
+@app.route('/get-user/<int:id_num>')
+def get_user(id_num=None):
+    try:
+        # Подключение к базе данных
+        con = sqlite3.connect('database/movies.sqlite')
+        cur = con.cursor()
+
+        if id_num is None:
+            # Получение списка всех пользователей
+            query = 'SELECT trip_id, name FROM users'
+            response = cur.execute(query)
+            result = response.fetchall()
+            return render_template('get_user.html', users=result)
+
+        # Получение информации о конкретном пользователе
+        query = 'SELECT name, city, date_first FROM users WHERE trip_id=?'
+        response = cur.execute(query, (id_num,))
+        result = response.fetchone()
+
+        if result:
+            name, city, date_first = result
+            return render_template('get_user.html',
+                                   name=name,
+                                   city=city,
+                                   start=date_first)
+        else:
+            return "Пользователь не найден", 404
+
+    except Error as e:
+        return f"Произошла ошибка: {str(e)}", 500
+
+    finally:
+        # Гарантированное закрытие соединения
+        if con:
+            cur.close()
+            con.close()
 
 # @app.route('/countdown')
 # def countdown():
@@ -125,36 +163,6 @@ def queue():
 #
 # import sqlite3
 #
-# @app.route('/get-users/<int:id_num>')
-# def get_users(id_num):
-#     connection = sqlite3.connect('./static/database/movies.sqlite')
-#     cursor = connection.cursor()
-#     query = cursor.execute(
-#         f"""
-#         select name, city from users
-#         where trip_id = {id_num}
-#         """
-#     )
-#     array = query.fetchall()
-#     name, city = array[len(array)-1]
-#     cursor.close()
-#     connection.close()
-#     return f'{name}, {city}'
-
-# @app.route('/get-users2/<city>')
-# def get_users2(city):
-#     connection = sqlite3.connect('./static/database/movies.sqlite')
-#     cursor = connection.cursor()
-#     query = cursor.execute(
-#         """
-#         select name, city from users
-#         where city = ?
-#         """,(str(city),)
-#     ).fetchall()
-#     for k, v in enumerate(query):
-#         return f'{k}, {v}'
-#     cursor.close()
-#     connection.close()
 
 # @app.route('/form-test', methods=['POST', 'GET'])
 # def form_test():
