@@ -1,6 +1,7 @@
 # Введение во Flask
 import os.path
 
+import requests
 from openpyxl.styles.builtins import title
 from pyexpat.errors import messages
 
@@ -9,7 +10,7 @@ from forms.news import NewsForm
 from forms.user import Register
 from flask import Flask, url_for, request, render_template, redirect, abort
 from werkzeug.utils import secure_filename, redirect
-from data import db_session
+from data import db_session, news_api
 from data.users import User
 from data.news import News
 from flask_login import LoginManager, login_user, logout_user, current_user, login_required
@@ -354,11 +355,14 @@ def delete_news(id_num):
     return redirect('/news')
 
 
-
+@app.route('/testapi')
+def testapi():
+    return requests.get('http://localhost:5000/api/news').json()
 
 
 if __name__ == '__main__':
     db_session.global_init('database/news.sqlite')
+    app.register_blueprint(news_api.blueprint)
     app.run(host='localhost', port=5000, debug=True)
     # user = User()
     # # db_sess = db_session.create_session()
