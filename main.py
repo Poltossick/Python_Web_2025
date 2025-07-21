@@ -4,13 +4,14 @@ from openpyxl.styles.builtins import title
 from pyexpat.errors import messages
 
 from forms.loginform import LoginForm
+from forms.news import NewsForm
 from forms.user import Register
-from flask import Flask, url_for, request, render_template, redirect
+from flask import Flask, url_for, request, render_template, redirect, abort
 from werkzeug.utils import secure_filename, redirect
 from data import db_session
 from data.users import User
 from data.news import News
-from flask_login import LoginManager, login_user, logout_user
+from flask_login import LoginManager, login_user, logout_user, current_user, login_required
 
 import sqlite3
 from sqlite3 import Error
@@ -28,10 +29,12 @@ def allowed_file(filename):
     return ('.' in filename and
             filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSION)
 
+
 @login_manager.user_loader
 def load_user(user_id):
     db_sess = db_session.create_session()
     return db_sess.query(User).get(user_id)
+
 
 @app.route('/index')
 @app.route('/')
@@ -53,6 +56,11 @@ def not_found(e):
     return render_template('404.html', title='Страница не найдена')
 
 
+@app.errorhandler(401)
+def not_unauthorized(_):
+    return redirect('/login')
+
+
 @app.route('/contacts')
 def contacts():
     return render_template('contacts.html')
@@ -71,19 +79,23 @@ def login():
                                message='Неверный логин или пароль')
     return render_template('login.html', title='Авторизация', form=form)
 
+
 @app.route('/logout')
+@login_required  # не может зайти на страницу, пока не авторизируется
 def logout():
     logout_user()
     return redirect('/login')
+
 
 @app.route('/personal-page')
 def personal_page():
     return redirect('/')
 
+
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     form = Register()
-    if form.validate_on_submit(): # то же самое, что и request.method == 'Post'
+    if form.validate_on_submit():  # то же самое, что и request.method == 'Post'
         if form.password.data != form.password_again.data:
             return render_template('register.html', title='Регистрация',
                                    message='Пароли не совпадают', form=form)
@@ -102,8 +114,6 @@ def register():
         return redirect('/login')
     return render_template('register.html',
                            title='Регистрация', form=form)
-
-
 
 
 @app.route('/numbers/<int:number>')
@@ -259,9 +269,75 @@ def upload():
 @app.route('/news')
 def publicnews():
     db_sess = db_session.create_session()
-    p_news = db_sess.query(News).filter(News.is_private != True).all()
+    if current_user.is_authenticated:
+        p_news = db_sess.query(News).filter(
+            (News.user == current_user) | (News.is_private != True)).all()
+    else:
+        p_news = db_sess.query(News).filter(News.is_private != True).all()
     return render_template('news.html',
                            title='Новости', news=p_news)
+
+
+@app.route('/newsjob', methods=['POST', 'GET'])
+@login_required
+def add_news():
+    form = NewsForm()
+    if form.validate_on_submit():
+        db_sess = db_session.create_session()
+        news = News(title=form.title.data, content=form.content.data, is_private=form.is_private.data)
+        current_user.news.append(news)
+        db_sess.merge(current_user)
+        db_sess.commit()
+        return redirect('/news')
+    return render_template('/newsjob.html', title='Добавление новости', form=form)
+
+
+@app.route('/newsjob/<int:id_num>', methods=['POST', 'GET'])
+@login_required
+def edit_news(id_num):
+    form = NewsForm()
+    if request.method == 'GET':
+        db_sess = db_session.create_session()
+        news = db_sess.query(News).filter(
+            News.id == id_num, News.user == current_user
+        ).first()
+        if news:
+            form.title.data = news.title
+            form.content.data = news.content
+            form.is_private.data = news.is_private
+        else:
+            abort(404)
+    if form.validate_on_submit():
+        db_sess = db_session.create_session()
+        news = db_sess.query(News).filter(
+            News.id == id_num, News.user == current_user
+        ).first()
+        if news:
+            news.title = form.title.data
+            news.content = form.content.data
+            news.is_private = form.is_private.data
+            db_sess.commit()
+            return redirect('/news')
+        else:
+            abort(404)
+    return render_template('/newsjob.html', title='Редактирование новости', form=form)
+
+@app.route('/newsdelete/<int:id_num>', methods=['POST', 'GET'])
+@login_required
+def delete_news(id_num):
+    db_sess = db_session.create_session()
+    news = db_sess.query(News).filter(
+        News.id == id_num, News.user == current_user
+    ).first()
+    if news:
+        db_sess.delete(news)
+        db_sess.commit()
+    else:
+        abort(404)
+    return redirect('/news')
+
+
+
 
 
 if __name__ == '__main__':
