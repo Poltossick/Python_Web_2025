@@ -20,6 +20,8 @@ class User(SqlAlchemyBase, UserMixin):
                               index=True, nullable=True)
     hashed_password = sqlalchemy.Column(sqlalchemy.String,
                                         nullable=True)
+    level = sqlalchemy.Column(sqlalchemy.Integer, default=1,
+                           autoincrement=True)
     create_date = sqlalchemy.Column(sqlalchemy.DateTime,
                                     default=datetime.datetime.now())
     news = orm.relationship("News", back_populates='user')
@@ -35,3 +37,6 @@ class User(SqlAlchemyBase, UserMixin):
 
     def check_password(self, password):
         return check_password_hash(self.hashed_password, password)
+
+    def is_admin(self):
+        return self.level > 1

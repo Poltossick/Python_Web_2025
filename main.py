@@ -1,5 +1,6 @@
 # Введение во Flask
 import os.path
+
 from openpyxl.styles.builtins import title
 from pyexpat.errors import messages
 
@@ -47,13 +48,29 @@ def index():
 
 
 @app.route('/about')
+@login_required
 def about():
-    return render_template('about.html')
+    return render_template('about.html', title= 'О нас')
 
+@app.route('/admin-page', methods=['GET', 'POST'])
+@login_required
+def adminpanel():
+    if current_user.is_authenticated and current_user.is_admin():
+        db_sess = db_session.create_session()
+        res = db_sess.query(News).all()
+        return render_template('admin.html', title='панель администратора', news=res)
+    else:
+        abort(404)
 
 @app.errorhandler(404)
 def not_found(e):
     return render_template('404.html', title='Страница не найдена')
+
+
+@app.route('/personal-page')
+@login_required
+def account():
+    return render_template('account.html', title='Личная страница')
 
 
 @app.errorhandler(401)

@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if current_user.is_authenticated %}
+    <h1>Новости пользователей</h1>
+<table class="table table-striped table-hover">
+  <tr>
+    <th> № </th>
+    <th> Заголовок </th>
+    <th> Новость </th>
+    <th> Приват </th>
+    <th> Автор </th>
+    <th> &nbsp; </th>
+    <th> &nbsp; </th>
+  </tr>
+  {% for item in news %}
+  <tr>
+    <td>{{loop.index}}</td>
+    <td>{{item.title}}</td>
+    <td>{{item.content}}</td>
+    <td>{{item.is_private}}</td>
+    <td>{{item.user.name}}</td>
+    <td>
+          <a href="/newsdelete/{{item.id}}" class="btn btn-danger btn-sm my-1">
+    &#x1F5D1
+    </a>
+    </td>
+        <td>
+        <a href="/newsjob/{{item.id}}" class="btn btn-warning btn-sm my-1">
+   &#9999
+    </a>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+
+{% endif %}
+{% endblock %}

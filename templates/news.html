@@ -20,7 +20,7 @@
         {% endif %}
     </div>
 </div>
-{% if current_user.is_authenticated and current_user == item.user %}
+{% if current_user.is_authenticated and current_user == item.user  %}
 <div class="py=1">
     <a href="/newsjob/{{item.id}}" class="btn btn-warning btn-sm my-1">
     Редактировать новость
