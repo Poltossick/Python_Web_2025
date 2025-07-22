@@ -8,7 +8,7 @@ from pyexpat.errors import messages
 from forms.loginform import LoginForm
 from forms.news import NewsForm
 from forms.user import Register
-from flask import Flask, url_for, request, render_template, redirect, abort
+from flask import Flask, url_for, request, render_template, redirect, abort, make_response, jsonify
 from werkzeug.utils import secure_filename, redirect
 from data import db_session, news_api
 from data.users import User
@@ -63,10 +63,21 @@ def adminpanel():
     else:
         abort(404)
 
-@app.errorhandler(404)
-def not_found(e):
-    return render_template('404.html', title='Страница не найдена')
+# @app.errorhandler(404)
+# def not_found(e):
+#     return render_template('404.html', title='Страница не найдена')
 
+@app.errorhandler(401)
+def not_unauthorized(_):
+    return redirect('/login')
+
+@app.errorhandler(400)
+def bad_request(_):
+    return make_response(jsonify({'error': 'Bad request'}), 400)
+
+@app.errorhandler(404)
+def not_found(_):
+    return make_response(jsonify({'error': 'Not found'}), 404)
 
 @app.route('/personal-page')
 @login_required
@@ -74,9 +85,6 @@ def account():
     return render_template('account.html', title='Личная страница')
 
 
-@app.errorhandler(401)
-def not_unauthorized(_):
-    return redirect('/login')
 
 
 @app.route('/contacts')
@@ -357,7 +365,8 @@ def delete_news(id_num):
 
 @app.route('/testapi')
 def testapi():
-    return requests.get('http://localhost:5000/api/news').json()
+    res = requests.get('http://localhost:5000/api/news').json()
+    return render_template('testapi.html', title='Тесть API', news=res)
 
 
 if __name__ == '__main__':
