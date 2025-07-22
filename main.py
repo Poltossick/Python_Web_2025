@@ -18,6 +18,8 @@ from flask_login import LoginManager, login_user, logout_user, current_user, log
 import sqlite3
 from sqlite3 import Error
 
+from mail_sender import send_mail
+
 app = Flask(__name__)
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -367,6 +369,20 @@ def delete_news(id_num):
 def testapi():
     res = requests.get('http://localhost:5000/api/news').json()
     return render_template('testapi.html', title='Тесть API', news=res)
+
+@app.route('/sendmail', methods=['GET', 'POST'])
+def mail_send():
+    name = request.form.get('name')
+    email = request.form.get('email')
+    message = request.form.get('message')
+    temp = (f'Письмо с обратной связью от '
+            f'{name} c текстом {message}. '
+            f'Отправитель: {email}. Вот его сообщение: ')
+    mess = temp + message
+    send_mail('Ваш email', 'обратная связь с сайта', mess)
+    send_mail(email, 'Получено', f'{name},  спасибо за обратную связь.')
+    return render_template('contacts.html',
+                           title='Почта отправлена', mess='Форма отправлена')
 
 
 if __name__ == '__main__':
