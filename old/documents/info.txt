@@ -1,0 +1,27 @@
+4, 2, 4, 6, 3, 5, 9, 7
+5, 1, 8, 2, 6, 8, 1, 2
+--
+-- File generated with SQLiteStudio v3.4.17 on Вт июл 15 14:17:31 2025
+--
+-- Text encoding used: System
+--
+PRAGMA foreign_keys = off;
+BEGIN TRANSACTION;
+
+-- Table: users
+CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, age INTEGER NOT NULL);
+INSERT INTO users (id, name, age) VALUES (1, 'Иван', 28);
+INSERT INTO users (id, name, age) VALUES (3, 'Сергей', 48);
+INSERT INTO users (id, name, age) VALUES (5, 'Марк', 45);
+INSERT INTO users (id, name, age) VALUES (6, 'Александр', 16);
+INSERT INTO users (id, name, age) VALUES (7, 'Марк', 45);
+INSERT INTO users (id, name, age) VALUES (8, 'Александр', 16);
+INSERT INTO users (id, name, age) VALUES (9, 'Petr', 28);
+INSERT INTO users (id, name, age) VALUES (10, 'Boris', 57);
+INSERT INTO users (id, name, age) VALUES (11, 'Oleg', 42);
+INSERT INTO users (id, name, age) VALUES (22, 'Макар', 63);
+INSERT INTO users (id, name, age) VALUES (23, 'Николай', 72);
+INSERT INTO users (id, name, age) VALUES (25, 'Иван', 87);
+
+COMMIT TRANSACTION;
+PRAGMA foreign_keys = on;

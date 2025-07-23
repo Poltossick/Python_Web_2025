@@ -1,0 +1,43 @@
+html, body, ul, ol, footer {
+  margin: 0;
+  padding: 0;
+}
+
+.message {
+  border: 1px solid rgba(194, 91, 185, 0.8784313725);
+  padding: 10px;
+  color: rgba(84, 179, 192, 0.4);
+}
+
+body {
+  font: Arial, Helvetica;
+}
+
+nav ul {
+  margin: 0;
+  font: Arial, Helvetica;
+}
+nav li {
+  display: block;
+  color: #cc7e7e;
+}
+
+.box {
+  -ms-transform: rotate(30deg);
+  -webkit-transform: rotate(30deg);
+  transform: rotate(30deg);
+}
+
+div {
+  -ms-transform: rotate(60deg);
+  -webkit-transform: rotate(60deg);
+  transform: rotate(60deg);
+}
+
+.message {
+  display: block;
+}
+
+.container {
+  width: 50%;
+}
