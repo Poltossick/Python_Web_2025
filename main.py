@@ -36,6 +36,13 @@ def allowed_file(filename):
     return ('.' in filename and
             filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSION)
 
+def send_to_telebot():
+    bot_token = '8066468637:AAHSvpRy6QAlpOO8npEUwjXH0Abi15OwJL8'
+    chat_id = '618640106'
+    message = 'Привет, Поля'
+    requests.get(f'https://api.telegram.org/bot{bot_token}/sendMessage?chat_id={chat_id}&text={message}')
+
+
 
 @login_manager.user_loader
 def load_user(user_id):
