@@ -16,4 +16,4 @@ from requests import get, post, put, delete
 
 # print(delete('http://localhost:5000/api/news/500').json())
 
-print(put('http://localhost:5000/api/news/1', json={'title': 'Изменён'}).json())
+# print(put('http://localhost:5000/api/news/1', json={'title': 'Изменён'}).json())
