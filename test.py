@@ -14,4 +14,6 @@ from requests import get, post, put, delete
 #                                                    'content': 'текст новости',
 #                                                    'user_id': 2, 'is_private': False}).json())
 
-print(delete('http://localhost:5000/api/news/500').json())
+# print(delete('http://localhost:5000/api/news/500').json())
+
+print(put('http://localhost:5000/api/news/1', json={'title': 'Изменён'}).json())
